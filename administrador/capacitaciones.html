@@ -30,17 +30,14 @@
                 <h2>TODAS LAS CAPACITACIONES</h2>
                 <article>
                     <div>
-                    <img src="/img/curso_excel.png" alt="Curso de Excel" width="100">
+                        <img src="/img/curso_excel.png" alt="Curso de Excel" width="100">
                         <h5>CURSO DE EXCEL (análisis)</h5>
                         <p>Aprovecha estas dos semanas de plazo y capacitate en como usar las tablas de excel.</p>
-                        <button type="button">EDITAR</button>
+                        <button type="button" class="btn-editar-curso">EDITAR</button>
                     </div>
                 </article>
             </div>
         </section>
-        <footer>
-        <p>&copy; 2026 EDUCACION ACTIVA CERTUS. Todos los derechos reservados.</p>
-    </footer>
 
         <!-- SECCIÓN 2 -->
         <section id="vista-crear" hidden>
@@ -98,9 +95,75 @@
                 </div>
             </form>
         </section>
+
+        <!-- MODAL: EDITAR CAPACITACIÓN Y VER VISUALIZACIONES -->
+        <dialog id="modal-editar-curso">
+            <div class="barra-salir">
+                <button type="button" id="btn-cerrar-editar">&lt; SALIR</button>
+            </div>
+
+            <div class="contenedor-editar">
+                <form id="form-editar-curso">
+                    <h3>EDITAR CAPACITACIÓN</h3>
+
+                    <div>
+                        <label for="edit-portada">Cambiar portada:</label>
+                        <input type="file" id="edit-portada" name="portada" accept="image/*">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="edit-estado">ABIERTO/CERRADO:</label>
+                        <select id="edit-estado" name="estado" required>
+                            <option value="abierto" selected>Abierto</option>
+                            <option value="cerrado">Cerrado</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="edit-destinatario">Destinatario:</label>
+                        <select id="edit-destinatario" name="destinatario" required>
+                            <option value="todos" selected>Todos los docentes</option>
+                            <option value="administracion">Escuela de Administración</option>
+                            <option value="DDS">Escuela de DDS</option>
+                            <option value="Admi-Bancaria">Admi. Bancaria</option>
+                            <option value="ti">Escuela de TI</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="edit-titulo">Nombre de la capacitación:</label>
+                        <input type="text" id="edit-titulo" name="titulo" value="CURSO DE EXCEL (análisis)" required>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="edit-descripcion">Descripción:</label>
+                        <input type="text" id="edit-descripcion" name="descripcion" value="Aprovecha estas dos semanas de plazo y capacitate en como usar las tablas de excel." required>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="edit-video">Enlace del video:</label>
+                        <input type="url" id="edit-video" name="video" value="https://youtube.com/ejemplo" required>
+                    </div>
+                    <br>
+                    <button type="submit">ACTUALIZAR CAPACITACIÓN</button>
+                </form>
+
+                <hr>
+
+                <div class="panel-visualizaciones">
+                    <h3>DOCENTES QUE VISUALIZARON (0)</h3>
+                    
+                </div>
+            </div>
+        </dialog>
     </main>
 
-    <script>
+    <footer>
+        <p>&copy; 2026 EDUCACION ACTIVA CERTUS. Todos los derechos reservados.</p>
+    </footer>
+
+   <script>
+        // 1. Cambiar entre el listado y la vista de crear capacitación
         document.getElementById('btn-ir-a-crear').onclick = function() {
             document.getElementById('header-lista').hidden = true;
             document.getElementById('vista-lista').hidden = true;
@@ -111,6 +174,19 @@
             document.getElementById('vista-crear').hidden = true;
             document.getElementById('header-lista').hidden = false;
             document.getElementById('vista-lista').hidden = false;
+        };
+
+        // 2. Abrir y cerrar la ventana emergente de EDITAR
+        const modalEditar = document.getElementById('modal-editar-curso');
+
+        document.querySelectorAll('.btn-editar-curso').forEach(function(boton) {
+            boton.onclick = function() {
+                modalEditar.showModal();
+            };
+        });
+
+        document.getElementById('btn-cerrar-editar').onclick = function() {
+            modalEditar.close();
         };
     </script>
 </body>
