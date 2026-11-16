@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOCENCIA ACTIVA CERTUS - Docentes</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <header id="header-lista">
+        <nav>
+            <a href="index.html">&lt;</a>
+            <a href="index.html">
+                <img src="img/certus-logo001.png" alt="Logo Certus" width="100">
+            </a>
+            <input type="search" placeholder="Buscar docente">
+        </nav>
+    </header>
+    <br>
+    <main>
+        <section id="agregar-docente">
+            <button type="button" id="btn-nuevo-docente">+</button>
+        </section>
+
+        <section id="lista-docentes">
+            <h2>DOCENTES DE CERTUS</h2>
+            <article class="docencia">
+                <img src="img/icono-docente.png" alt="Foto docente" width="50">
+                <p>Nombre del docente</p>
+                <button type="button" class="btn-ver-docente">VER DOCENTE</button>
+            </article>
+        </section>
+        <!-- MODAL 2: VER DETALLE DEL DOCENTE  -->
+        <dialog id="modal-ver-docente">
+            <div class="tarjeta-detalle-docente">
+                
+                <div class="info-docente">
+                    <div class="cabecera-perfil">
+                    <button type="button" id="btn-cerrar-ver">X</button>
+                        <br><br>
+                        <img src="img/icono-docente.png" alt="Foto docente" width="80">
+                        <h4>Nombre del docente</h4>
+                    </div>
+
+                    <p class="campo-dato">Correo electrónico</p>
+                    <p class="campo-dato">DNI del docente</p>
+                    <p class="campo-dato">Contraseña del docente</p>
+                </div>
+
+                <div class="panel-derecho">
+                    <div class="caja-capacitaciones">
+                        <h4>CAPACITACIONES ASIGNADAS</h4>
+
+                        <article class="curso-asignado">
+                            <h5>Excel Básico para Docentes</h5>
+                              <img src="/img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
+
+                            <div class="progreso">
+                               
+                            </div>
+                            <span class="estado-curso">ESTADO:</span>
+                        </article>
+                    </div>
+
+                    <button type="button" class="btn-eliminar">ELIMINAR</button>
+                </div>
+            </div>
+        </dialog>
+
+        <!-- VENTANA FLOTANTE  -->
+        <dialog id="modal-crear-docente">
+            <button type="button" id="btn-cerrar-modal">X</button>
+            <h2>CREA UN NUEVO PERFIL CON TODAS LAS CREDENCIALES</h2>
+
+            <form id="form-nuevo-docente">
+                <div>
+                    <label for="correo-docente">Ingrese correo electrónico/ID:</label>
+                    <input type="text" id="correo-docente" name="correo" required>
+                </div>
+                <br>
+                <div>
+                    <label for="dni-docente">Ingrese DNI:</label>
+                    <input type="text" id="dni-docente" name="dni" required>
+                </div>
+                <br>
+                <div>
+                    <label for="password-docente">Cree la contraseña:</label>
+                    <input type="password" id="password-docente" name="password" required>
+                </div>
+                <br>
+                <div class="fila-inferior">
+                    <div>
+                        <label for="categoria-docente">Seleccione la categoría:</label>
+                        <select id="categoria-docente" name="categoria" required>
+                            <option value="" disabled selected></option>
+                            <option value="administracion">Escuela de Administración</option>
+                            <option value="DDS">Escuela de DDS</option>
+                            <option value="Admi-Bancaria">Admi. Bancaria</option>
+                            <option value="ti">Escuela de TI</option>
+                            <option value="administrador">ADMINISTRADOR</option>
+                        </select>
+                    </div>
+                    <br><br>
+                    <button type="submit">CREAR</button>
+                </div>
+            </form>
+        </dialog>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 EDUCACION ACTIVA CERTUS. Todos los derechos reservados.</p>
+    </footer>
+
+    
+    <script>
+        const modal = document.getElementById('modal-crear-docente');
+
+        document.getElementById('btn-nuevo-docente').onclick = function() {
+            modal.showModal();
+        };
+
+        document.getElementById('btn-cerrar-modal').onclick = function() {
+            modal.close();
+        };
+        //SCRIP PARA VER DOCENTEE
+        const modalVer = document.getElementById('modal-ver-docente');
+        document.querySelectorAll('.btn-ver-docente').forEach(function(boton) {
+            boton.onclick = function() {
+                modalVer.showModal();
+            };
+        });
+        document.getElementById('btn-cerrar-ver').onclick = function() {
+            modalVer.close();
+        };
+    </script>
+</body>
+</html>
