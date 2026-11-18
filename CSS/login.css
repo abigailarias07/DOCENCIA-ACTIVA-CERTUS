@@ -1,0 +1,129 @@
+/* bse */
+:root {
+  --azul-oscuro: #00205b;
+  --azul-claro: #a2bcee;
+  --campo: #fffafa;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Sen", "Segoe UI", Arial, sans-serif;
+  color: #000;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/*tabla */
+table {
+  width: 640px;
+  max-width: 92%;
+  border: 1px solid #000;    
+  border-radius: 40px;
+  border-collapse: separate;    
+  background: var(--azul-claro);
+}
+
+table td {
+  border: none;
+  padding: 20px 0 30px;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h4 {
+  margin: 0 0 35px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/*casillas form*/
+form {
+  width: 456px;
+  max-width: 85%;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--campo);
+  border: 1px solid #000;
+  border-radius: 8px;
+  outline: none;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  box-shadow: 0 0 0 3px rgba(0, 32, 91, 0.35);
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin: 0 8px 0 0;
+}
+
+input[type="checkbox"] + label {
+  display: inline;
+  vertical-align: middle;
+}
+
+
+.boton-ingresar {
+  background: var(--azul-oscuro);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 64px;
+  font-size: 18px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.boton-ingresar:hover {
+  background: #0a3a8f;
+}
+
+#parrafo-peque {
+  font-size: 12px;
+  margin: 16px 0 0;
+}
+
+hr {
+  display: none;
+}
+
+footer {
+  margin-top: auto;
+  background: var(--azul-oscuro);
+  color: #fff;
+  padding: 24px 0;
+  text-align: center;
+}
+
+#footers {
+  margin: 0;
+  font-size: 14px;
+}
