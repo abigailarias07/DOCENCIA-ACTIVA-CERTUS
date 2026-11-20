@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#header-lista {
+    background: #002060;
+    border-bottom: 4px solid #1fa3ec;
+    padding: 0 16px;
+}
+
+#header-lista nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 60px;
+}
+
+#header-lista .salir {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: auto; 
+}
+
+#header-lista input[type="search"] {
+    width: 35%;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.85rem;
+}
+
+#header-lista .avatar-perfil {
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: #d9d9d9;
+}
+
+main {
+    padding: 0 20px;
+}
+#agregar-docente {
+    margin-top: 24px;
+    height: 55px;
+    border: 1px solid #333;
+}
+
+#btn-nuevo-docente {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#lista-docentes h2 {
+    font-size: 1rem;
+    margin: 20px 0 0;
+}
+
+.docencia {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 8px 10px;
+    background: #d9d9d9;
+}
+
+.docencia img {
+    width: 60px;
+    height: 60px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.docencia p {
+    flex: 1;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.btn-ver-docente {
+    background: #4bc0f0;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 32px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.btn-ver-docente:hover {
+    background: #2aa9e0;
+}

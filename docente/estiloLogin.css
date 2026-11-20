@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --azul-oscuro: #00205b;
+  --azul-claro: #a2bcee;
+  --campo: #fffafa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+  color: #000;
+  background: #fff url("recursos/fondos/fondo_edificio.png") no-repeat center / cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.encabezado {
+  padding: 16px 20px 0;
+}
+
+.logo-pildora {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--azul-oscuro);
+  border-radius: 99px;
+  padding: 8px 28px;
+}
+
+.contenedor-login {
+  width: 100%;
+  padding: 10px 16px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.tarjeta-login {
+  width: 540px;
+  max-width: 100%;
+  border: 1px solid #000;
+  border-radius: 40px;
+  background: var(--azul-claro);
+  padding: 32px 20px 28px;
+}
+
+/* Títulos */
+.titulo-login {
+  text-align: center;
+  padding: 0 15px;
+}
+
+.logo-tarjeta {
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.titulo-login h1 {
+  margin: 0 0 24px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--azul-oscuro);
+  letter-spacing: 1px;
+}
+
+/* Formulario */
+form {
+  width: 456px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.campo-formulario {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.input-icono {
+  position: relative;
+}
+
+.input-icono .icono {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 14px 48px 14px 56px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--campo);
+  border: 1px solid #000;
+  border-radius: 14px;
+  outline: none;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+  box-shadow: 0 0 0 3px rgba(0, 32, 91, 0.35);
+}
+
+.ver-clave {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+}
+
+/* Checkbox */
+.campo-checkbox {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0 8px 0 0;
+  cursor: pointer;
+}
+
+input[type="checkbox"] + label {
+  display: inline;
+  margin-bottom: 0;
+  font-size: 14px;
+  color: var(--azul-oscuro);
+  cursor: pointer;
+}
+
+/* Botón y enlace */
+.acciones-formulario {
+  text-align: center;
+}
+
+.boton-ingresar {
+  background: var(--azul-oscuro);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 64px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.boton-ingresar:hover {
+  background: #0a3a8f;
+}
+
+#parrafo-peque {
+  font-size: 14px;
+  margin: 18px 0 0;
+}
+
+#parrafo-peque a {
+  color: var(--azul-oscuro);
+  font-weight: 700;
+}
+
+/* Footer */
+hr {
+  display: none;
+}
+
+footer {
+  margin-top: auto;
+  background: var(--azul-oscuro);
+  color: #fff;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+#footers {
+  margin: 0;
+  font-size: 14px;
+}
