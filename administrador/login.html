@@ -4,64 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DOCENCIA ACTIVA CERTUS</title>
-  <link rel="stylesheet" href="CSS/login.css">
+  <link rel="stylesheet" href="/CSS/login.css">
 </head>
 <body>
 
-  <br>
+  <header class="encabezado">
+    <img src="/img/certus-logo001.png" alt="Logo CERTUS" width="170">
+  </header>
 
-  <center>
-    <img src="img/certus-logo001.png" alt="Logo CERTUS" width="170">
-  </center>
+  <main class="contenedor-login">
+    <section class="tarjeta-login">
+      
+      <div class="titulo-login">
+        <h1>INICIAR SESIÓN</h1>
+        <p>Bienvenido a la plataforma educativa DOCENCIA ACTIVA CERTUS</p>
+      </div>
 
-  <br>
+      <form action="#" method="post">
+        <div class="campo-formulario">
+          <label for="correo">Correo Institucional:</label>
+          <input type="email" id="correo" name="correo" placeholder="Ingrese su correo institucional" required>
+        </div>
 
-  <center>
-    <table  border="1" bordercolor="00000" cellpadding="35" cellspacing="0" width="600">
-      <tr>
-        <td>
+        <div class="campo-formulario">
+          <label for="contrasenia">Ingrese su clave de acceso:</label>
+          <input type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese su clave de acceso" required>
+        </div>
 
-          <center>
-            <h2>INICIAR SESIÓN</h2>
-            <h4>Bienvenido a la plataforma educativa DOCENCIA ACTIVA CERTUS</h4>
-          </center>
+        <div class="campo-checkbox">
+          <input type="checkbox" id="recordar_contrasenia" name="recordar_contrasenia">
+          <label for="recordar_contrasenia">Recordar inicio de sesión</label>
+        </div>
 
-          <form action="#" method="post">
+        <div class="acciones-formulario">
+          <button type="submit" class="boton-ingresar">Ingresar</button>
+          <p id="parrafo-peque">Al ingresar acepta todos los términos de política de privacidad</p>
+        </div>
+      </form>
 
-            <label for="correo">Correo Institucional:</label>
-            <br>
-            <input type="email" id="correo" name="correo" size="50" placeholder="Ingrese su correo institucional" required>
-            <br><br>
+    </section>
+  </main>
 
-            <label for="contrasenia">Ingrese su clave de acceso:</label>
-            <br>
-            <input type="password" id="contrasenia" name="contrasenia" size="50" placeholder="Ingrese su clave de acceso" required>
-            <br><br>
-
-            <input type="checkbox" id="recordar_contrasenia" name="recordar_contrasenia">
-            <label for="recordar_contrasenia">Recordar inicio de sesión</label>
-
-            <br><br><br>
-
-            <center>
-              <button type="submit" class="boton-ingresar">Ingresar</button>
-            </center>
-            <center>
-                <p id="parrafo-peque">Al ingresar acepta todos los terminos de politica de privacidad</p>
-            </center>
-          </form>
-
-        </td>
-      </tr>
-    </table>
-  </center>
-
-  <br><br>
   <hr>
+  
   <footer>
-    <center>
-      <p id="footers">&copy; 2026 EDUCACION ACTIVA CERTUS. Todos los derechos reservados.</p>
-    </center>
+    <p id="footers">&copy; 2026 EDUCACIÓN ACTIVA CERTUS. Todos los derechos reservados.</p>
   </footer>
 
   <script src="script.js"></script>

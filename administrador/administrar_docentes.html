@@ -1,148 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOCENCIA ACTIVA CERTUS - Docentes</title>
-    <link rel="stylesheet" href="estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOCENCIA ACTIVA CERTUS - Docentes</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
-    <header id="header-lista">
-        <nav>
-            <a href="index.html">&lt;</a>
-            <a href="index.html">
-                <img src="img/certus-logo001.png" alt="Logo Certus" width="100">
-            </a>
-            <input type="search" placeholder="Buscar docente">
-        </nav>
-    </header>
-    <br>
-    <main>
-        <section id="agregar-docente">
-            <button type="button" id="btn-nuevo-docente">+</button>
-        </section>
+  <header id="header-lista">
+    <nav>
+      <a href="index.html" aria-label="Volver">&lt;</a>
+      <a href="index.html">
+        <img src="img/certus-logo001.png" alt="Logo Certus" width="100">
+      </a>
+      <input type="search" placeholder="Buscar docente">
+    </nav>
+  </header>
 
-        <section id="lista-docentes">
-            <h2>DOCENTES DE CERTUS</h2>
-            <article class="docencia">
-                <img src="img/icono-docente.png" alt="Foto docente" width="50">
-                <p>Nombre del docente</p>
-                <button type="button" class="btn-ver-docente">VER DOCENTE</button>
-            </article>
-        </section>
-        <!-- MODAL 2: VER DETALLE DEL DOCENTE  -->
-        <dialog id="modal-ver-docente">
-            <div class="tarjeta-detalle-docente">
-                
-                <div class="info-docente">
-                    <div class="cabecera-perfil">
-                    <button type="button" id="btn-cerrar-ver">X</button>
-                        <br><br>
-                        <img src="img/icono-docente.png" alt="Foto docente" width="80">
-                        <h4>Nombre del docente</h4>
-                    </div>
+  <main>
+    <section id="agregar-docente">
+      <button type="button" id="btn-nuevo-docente">+</button>
+    </section>
 
-                    <p class="campo-dato">Correo electrónico</p>
-                    <p class="campo-dato">DNI del docente</p>
-                     </div>
+    <section id="lista-docentes">
+      <h2>DOCENTES DE CERTUS</h2>
+      <article class="docencia">
+        <img src="img/icono-docente.png" alt="Foto docente" width="50">
+        <p>Nombre del docente</p>
+        <a href="vista_docente.html" class="btn-ver-docente">VER DOCENTE</a>
+      </article>
+    </section>
 
-                    <button type="button" class="btn-deshabilitar">DESHABILITAR PERFIL</button>
-                </div>
-                </div>
+    <!-- VENTANA FLOTANTE: CREAR DOCENTE -->
+    <dialog id="modal-crear-docente">
+      <button type="button" id="btn-cerrar-modal">X</button>
+      <h2>CREA UN NUEVO PERFIL CON TODAS LAS CREDENCIALES</h2>
 
-                <div class="panel-derecho">
-                    <div class="caja-capacitaciones">
-                        <td>
-                        <h3>HISTORIAL DE CAPACITACIONES</h3>
+      <form id="form-nuevo-docente">
+        <div class="campo-modal">
+          <label for="correo-docente">Ingrese correo electrónico/ID:</label>
+          <input type="text" id="correo-docente" name="correo" required>
+        </div>
 
-                        <h5>CAPACITACIONES ASIGNADAS</h5>
-                        <article class="capacitacion-asignado">
-                            <h6>Excel Básico para Docentes</h6>
-                              <img src="/img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
-                            </article>
-                         <h5>CAPACITACIONES EN PROGRESO</h5>
-                        <article class="capacitaciones-progreso">
-                            <h6>Excel Básico para Docentes</h6>
-                              <img src="/img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
-                            </article>
+        <div class="campo-modal">
+          <label for="dni-docente">Ingrese DNI:</label>
+          <input type="text" id="dni-docente" name="dni" required>
+        </div>
 
-                            <div class="porcentaje-progreso">
-                            </div>
-                            <article class="capacitaciones-culminadas"></article>
-                              <h5>CAPACITACIONES CULMINADAS</h5>
-                            <h6>Excel Básico para Docentes</h6>
-                              <img src="/img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
-                        </article>
-                   
-            </div>
-        </dialog>
+        <div class="campo-modal">
+          <label for="password-docente">Cree la contraseña:</label>
+          <input type="password" id="password-docente" name="password" required>
+        </div>
 
-        <!-- VENTANA FLOTANTE  -->
-        <dialog id="modal-crear-docente">
-            <button type="button" id="btn-cerrar-modal">X</button>
-            <h2>CREA UN NUEVO PERFIL CON TODAS LAS CREDENCIALES</h2>
+        <div class="fila-inferior">
+          <div class="campo-modal">
+            <label for="categoria-docente">Seleccione la categoría:</label>
+            <select id="categoria-docente" name="categoria" required>
+              <option value="" disabled selected>Seleccione una categoría</option>
+              <option value="administracion">Escuela de Administración</option>
+              <option value="DDS">Escuela de DDS</option>
+              <option value="Admi-Bancaria">Admi. Bancaria</option>
+              <option value="ti">Escuela de TI</option>
+              <option value="administrador">ADMINISTRADOR</option>
+            </select>
+          </div>
 
-            <form id="form-nuevo-docente">
-                <div>
-                    <label for="correo-docente">Ingrese correo electrónico/ID:</label>
-                    <input type="text" id="correo-docente" name="correo" required>
-                </div>
-                <br>
-                <div>
-                    <label for="dni-docente">Ingrese DNI:</label>
-                    <input type="text" id="dni-docente" name="dni" required>
-                </div>
-                <br>
-                <div>
-                    <label for="password-docente">Cree la contraseña:</label>
-                    <input type="password" id="password-docente" name="password" required>
-                </div>
-                <br>
-                <div class="fila-inferior">
-                    <div>
-                        <label for="categoria-docente">Seleccione la categoría:</label>
-                        <select id="categoria-docente" name="categoria" required>
-                            <option value="" disabled selected></option>
-                            <option value="administracion">Escuela de Administración</option>
-                            <option value="DDS">Escuela de DDS</option>
-                            <option value="Admi-Bancaria">Admi. Bancaria</option>
-                            <option value="ti">Escuela de TI</option>
-                            <option value="administrador">ADMINISTRADOR</option>
-                        </select>
-                    </div>
-                    <br><br>
-                    <button type="submit">CREAR</button>
-                </div>
-            </form>
-        </dialog>
-    </main>
+          <button type="submit">CREAR</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
 
-    <footer>
-        <p>&copy; 2026 EDUCACION ACTIVA CERTUS. Todos los derechos reservados.</p>
-    </footer>
+  <footer>
+    <p>&copy; 2026 EDUCACIÓN ACTIVA CERTUS. Todos los derechos reservados.</p>
+  </footer>
 
-    
-    <script>
-        const modal = document.getElementById('modal-crear-docente');
+  <script>
+    const modal = document.getElementById('modal-crear-docente');
 
-        document.getElementById('btn-nuevo-docente').onclick = function() {
-            modal.showModal();
-        };
+    document.getElementById('btn-nuevo-docente').onclick = function() {
+      modal.showModal();
+    };
 
-        document.getElementById('btn-cerrar-modal').onclick = function() {
-            modal.close();
-        };
-        //SCRIP PARA VER DOCENTEE
-        const modalVer = document.getElementById('modal-ver-docente');
-        document.querySelectorAll('.btn-ver-docente').forEach(function(boton) {
-            boton.onclick = function() {
-                modalVer.showModal();
-            };
-        });
-        document.getElementById('btn-cerrar-ver').onclick = function() {
-            modalVer.close();
-        };
-    </script>
+    document.getElementById('btn-cerrar-modal').onclick = function() {
+      modal.close();
+    };
+  </script>
 </body>
 </html>

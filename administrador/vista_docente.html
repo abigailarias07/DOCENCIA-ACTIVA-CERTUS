@@ -1,68 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOCENCIA ACTIVA CERTUS - Docentes</title>
-    <link rel="stylesheet" href="estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOCENCIA ACTIVA CERTUS - Docentes</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-<header id="header-lista">
-        <nav>
-            <a href="index.html">&lt;</a>
-            <a href="index.html">
-                <img src="img/certus-logo001.png" alt="Logo Certus" width="100">
-            </a>
 
-        </nav>
-    </header>
+  <header id="header-lista">
+    <nav>
+      <a href="index.html" aria-label="Volver">&lt;</a>
+      <a href="index.html">
+        <img src="/img/certus-logo001.png" alt="Logo Certus" width="100">
+      </a>
+    </nav>
+  </header>
 
- <!--  VER DETALLE DEL DOCENTE  -->
-        
-            <div class="vista_docente">
-                
-                <div class="info-docente">
-                    <div class="cabecera-perfil">
-                    <button type="button" id="btn-cerrar-ver">X</button>
-                        <br><br>
-                        <img src="img/icono-docente.png" alt="Foto docente" width="80">
-                        <h4>Nombre del docente</h4>
-                    </div>
+  
+  <main class="vista_docente">
 
-                    <p class="campo-dato">Correo electrónico</p>
-                    <p class="campo-dato">DNI del docente</p>
-                     </div>
+    <!-- Panel Izquierdo: Información del Docente -->
+    <aside class="info-docente">
+      <div class="cabecera-perfil">
+        <button type="button" id="btn-cerrar-ver" aria-label="Cerrar detalle">X</button>
+        <img src="/img/" alt="Foto docente" width="80">
+        <h2>Nombre del docente</h2>
+      </div>
 
-                    <button type="button" class="btn-deshabilitar">DESHABILITAR PERFIL</button>
-                </div>
-                </div>
+      <div class="datos-docente">
+        <p class="campo-dato">Correo electrónico</p>
+        <p class="campo-dato">DNI del docente</p>
+      </div>
 
-                <div class="panel-derecho">
-                    <div class="caja-capacitaciones">
-                        <td>
-                        <h3>HISTORIAL DE CAPACITACIONES</h3>
+      <button type="button" class="btn-deshabilitar">DESHABILITAR PERFIL</button>
+    </aside>
 
-                        <h5>CAPACITACIONES ASIGNADAS</h5>
-                        <article class="capacitacion-asignado">
-                            <h6>Excel Básico para Docentes</h6>
-                              <img src="/img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
-                            </article>
-                         <h5>CAPACITACIONES EN PROGRESO</h5>
-                        <article class="capacitaciones-progreso">
-                            <h6>Excel Básico para Docentes</h6>
-                              <img src="/img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
-                            </article>
+    <!-- Panel Derecho: Historial de Capacitaciones -->
+    <section class="panel-derecho">
+      <div class="caja-capacitaciones">
+        <hr>
+        <h2>HISTORIAL DE CAPACITACIONES</h2>
+        <hr>
+        <div class="grupo-capacitacion">
+          <h3>CAPACITACIONES ASIGNADAS</h3>
+          <article class="capacitacion-asignado">
+            <h4>Excel Básico para Docentes</h4>
+            <img src="img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
+          </article>
+        </div>
+<hr>
+        <div class="grupo-capacitacion">
+          <h3>CAPACITACIONES EN PROGRESO</h3>
+          <article class="capacitaciones-progreso">
+            <h4>Excel Básico para Docentes</h4>
+            <img src="img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
+            <div class="porcentaje-progreso"></div>
+          </article>
+        </div>
+     <hr>
+        <div class="grupo-capacitacion">
+          <h3>CAPACITACIONES CULMINADAS</h3>
+          <article class="capacitaciones-culminadas">
+            <h4>Excel Básico para Docentes</h4>
+            <img src="img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
+          </article>
+        </div>
 
-                            <div class="porcentaje-progreso">
-                            </div>
-                            <article class="capacitaciones-culminadas"></article>
-                              <h5>CAPACITACIONES CULMINADAS</h5>
-                            <h6>Excel Básico para Docentes</h6>
-                              <img src="/img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
-                        </article>
-                   
-            </div>
-        </dialog>
+      </div>
+    </section>
 
-       </body>
-       </html>
+  </main>
+
+</body>
+</html>

@@ -1,8 +1,13 @@
-/* bse */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
   --azul-oscuro: #00205b;
   --azul-claro: #a2bcee;
   --campo: #fffafa;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html, body {
@@ -11,7 +16,7 @@ html, body {
 
 body {
   margin: 0;
-  font-family: "Sen", "Segoe UI", Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
   color: #000;
   background: #fff;
   display: flex;
@@ -19,38 +24,56 @@ body {
   min-height: 100vh;
 }
 
-/*tabla */
-table {
+/* Encabezado y Logo */
+.encabezado {
+  text-align: center;
+  padding: 24px 0 16px;
+}
+
+/* Contenedor principal y Tarjeta */
+.contenedor-login {
+  width: 100%;
+  padding: 10px 16px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.tarjeta-login {
   width: 640px;
-  max-width: 92%;
-  border: 1px solid #000;    
+  max-width: 100%;
+  border: 1px solid #000;
   border-radius: 40px;
-  border-collapse: separate;    
   background: var(--azul-claro);
+  padding: 36px 20px 32px;
 }
 
-table td {
-  border: none;
-  padding: 20px 0 30px;
+/* Títulos */
+.titulo-login {
+  text-align: center;
+  padding: 0 15px;
 }
 
-h2 {
+.titulo-login h1 {
   margin: 0 0 8px;
   font-size: 24px;
   font-weight: 700;
 }
 
-h4 {
-  margin: 0 0 35px;
+.titulo-login p {
+  margin: 0 0 32px;
   font-size: 18px;
   font-weight: 400;
 }
 
-/*casillas form*/
+/* Casillas del formulario */
 form {
   width: 456px;
-  max-width: 85%;
+  max-width: 90%;
   margin: 0 auto;
+}
+
+.campo-formulario {
+  margin-bottom: 18px;
 }
 
 label {
@@ -62,7 +85,6 @@ label {
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  box-sizing: border-box;
   padding: 14px;
   font-size: 14px;
   font-family: inherit;
@@ -77,18 +99,30 @@ input[type="password"]:focus {
   box-shadow: 0 0 0 3px rgba(0, 32, 91, 0.35);
 }
 
+/* Checkbox */
+.campo-checkbox {
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+}
+
 input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  vertical-align: middle;
   margin: 0 8px 0 0;
+  cursor: pointer;
 }
 
 input[type="checkbox"] + label {
   display: inline;
-  vertical-align: middle;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 
+/* Botón y texto legal */
+.acciones-formulario {
+  text-align: center;
+}
 
 .boton-ingresar {
   background: var(--azul-oscuro);
@@ -111,6 +145,7 @@ input[type="checkbox"] + label {
   margin: 16px 0 0;
 }
 
+/* Footer */
 hr {
   display: none;
 }
@@ -119,7 +154,7 @@ footer {
   margin-top: auto;
   background: var(--azul-oscuro);
   color: #fff;
-  padding: 24px 0;
+  padding: 24px 16px;
   text-align: center;
 }
 
