@@ -1,10 +1,6 @@
-
-/* =============================================
-   DOCENCIA ACTIVA CERTUS
-   HOJA DE ESTILOS GENERAL
-============================================= */
-
-/* CONFIGURACIÓN GENERAL */
+/* =========================================
+   DOCENCIA ACTIVA CERTUS - PANEL ADMIN
+========================================= */
 
 * {
     margin: 0;
@@ -12,31 +8,34 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6fa;
-    color: #263445;
-    min-height: 100vh;
+html, body {
+    min-height: 100%;
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f4f9;
+    color: #263445;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-/* =============================================
-   PANEL PRINCIPAL DEL ADMINISTRADOR
-============================================= */
+/* =========================================
+   ENCABEZADO Y NAVEGACIÓN
+========================================= */
 
-/* HEADER */
-
-#header-admin {
+header {
     width: 100%;
     background: #002060;
     border-bottom: 4px solid #1fa3ec;
-    padding: 0 5%;
     box-shadow: 0 3px 12px rgba(0,0,0,0.15);
 }
 
-#header-admin nav {
+header nav {
+    width: 90%;
     max-width: 1250px;
-    min-height: 75px;
+    min-height: 85px;
     margin: auto;
     display: flex;
     align-items: center;
@@ -44,292 +43,157 @@ body {
     gap: 20px;
 }
 
-#header-admin nav img {
+header nav img {
     width: 115px;
     height: auto;
     object-fit: contain;
 }
 
-#header-admin nav a {
+/* Enlaces del menú */
+
+header nav a {
     color: #ffffff;
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
-    padding: 12px 16px;
-    border-radius: 7px;
-    transition: all 0.3s ease;
+    padding: 12px 18px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    white-space: nowrap;
 }
 
-#header-admin nav a:hover {
+header nav a:hover {
     background: #1fa3ec;
     color: #ffffff;
 }
 
-/* CONTENIDO PRINCIPAL */
+/* Evitar enlaces morados o visitados */
 
-.panel-admin {
-    width: 90%;
-    max-width: 1150px;
-    margin: 50px auto;
-    padding: 35px;
-    background: #ffffff;
-    border-radius: 12px;
-    min-height: 350px;
-    box-shadow: 0 5px 20px rgba(0,40,85,0.07);
+header nav a:visited {
+    color: #ffffff;
 }
 
-.panel-admin h1 {
+header nav a:active {
+    color: #ffffff;
+}
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+
+main {
+    width: 90%;
+    max-width: 1150px;
+    flex: 1;
+    margin: 45px auto;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 13px;
+    box-shadow: 0 5px 20px rgba(0,40,85,0.08);
+    min-height: 300px;
+}
+
+main h1 {
     color: #002060;
-    font-size: 30px;
-    margin-bottom: 20px;
+    font-size: 28px;
+    margin-bottom: 15px;
     padding-left: 15px;
     border-left: 6px solid #1fa3ec;
 }
 
-.panel-admin p {
+main p {
     color: #596579;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.7;
 }
 
-/* FOOTER ADMINISTRADOR */
+/* =========================================
+   PIE DE PÁGINA
+========================================= */
 
-#footer-admin {
+footer {
     width: 100%;
     background: #002060;
-    color: #ffffff;
+    border-top: 3px solid #1fa3ec;
+    padding: 20px 15px;
     text-align: center;
-    padding: 22px 15px;
-    margin-top: 40px;
+    margin-top: auto;
 }
 
-#footer-admin p {
+footer p {
+    color: #ffffff;
     font-size: 13px;
-    color: #ffffff;
-}
-
-
-/* =============================================
-   GESTIÓN Y LISTA DE DOCENTES
-============================================= */
-
-#header-lista {
-    background: #002060;
-    border-bottom: 4px solid #1fa3ec;
-    padding: 0 16px;
-}
-
-#header-lista nav {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    height: 60px;
-}
-
-#header-lista .salir {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
-    margin-right: auto;
-}
-
-#header-lista input[type="search"] {
-    width: 35%;
-    padding: 8px 14px;
-    border: none;
-    border-radius: 10px;
-    font-size: 0.85rem;
-}
-
-#header-lista .avatar-perfil {
-    width: 40px;
-    height: 40px;
-    padding: 6px;
-    box-sizing: border-box;
-    border-radius: 50%;
-    background: #d9d9d9;
-}
-
-/* CONTENIDO DE DOCENTES */
-
-main {
-    padding: 0 20px;
-}
-
-#agregar-docente {
-    margin-top: 24px;
-    height: 55px;
-    border: 1px solid #333;
-}
-
-#btn-nuevo-docente {
-    width: 100%;
-    height: 100%;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-#lista-docentes h2 {
-    font-size: 1rem;
-    margin: 20px 0 0;
-}
-
-.docencia {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 24px;
-    padding: 8px 10px;
-    background: #d9d9d9;
-}
-
-.docencia img {
-    width: 60px;
-    height: 60px;
-    padding: 8px;
-    box-sizing: border-box;
-    border-radius: 50%;
-    background: #ffffff;
-}
-
-.docencia p {
-    flex: 1;
     margin: 0;
-    font-size: 1.1rem;
 }
 
-.btn-ver-docente {
-    background: #4bc0f0;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 32px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn-ver-docente:hover {
-    background: #2aa9e0;
-}
-
-
-/* =============================================
-   RESPONSIVE - TABLETS
-============================================= */
+/* =========================================
+   TABLETS
+========================================= */
 
 @media (max-width: 850px) {
 
-    #header-admin {
-        padding: 12px 3%;
-    }
-
-    #header-admin nav {
+    header nav {
+        width: 95%;
         flex-wrap: wrap;
         justify-content: center;
+        padding: 15px 0;
         gap: 10px;
     }
 
-    #header-admin nav img {
+    header nav img {
         width: 100px;
     }
 
-    .panel-admin {
+    main {
         width: 94%;
-        padding: 25px;
         margin: 30px auto;
-    }
-
-    #header-lista nav {
-        flex-wrap: wrap;
-        height: auto;
-        padding: 12px 0;
     }
 }
 
-
-/* =============================================
-   RESPONSIVE - CELULARES
-============================================= */
+/* =========================================
+   CELULARES
+========================================= */
 
 @media (max-width: 600px) {
 
-    /* HEADER ADMIN */
-
-    #header-admin {
-        padding: 15px;
-    }
-
-    #header-admin nav {
+    header nav {
         flex-direction: column;
+        padding: 18px 10px;
         gap: 8px;
     }
 
-    #header-admin nav img {
-        width: 105px;
-        margin-bottom: 8px;
+    header nav img {
+        width: 110px;
+        margin-bottom: 5px;
     }
 
-    #header-admin nav a {
+    header nav a {
         width: 100%;
         text-align: center;
         background: rgba(255,255,255,0.08);
-        padding: 12px;
+        padding: 13px;
     }
 
-    /* PANEL ADMIN */
-
-    .panel-admin {
+    main {
         width: 92%;
         margin: 25px auto;
         padding: 22px 18px;
-        min-height: 300px;
+        min-height: 280px;
     }
 
-    .panel-admin h1 {
-        font-size: 23px;
+    main h1 {
+        font-size: 22px;
     }
 
-    .panel-admin p {
+    main p {
         font-size: 14px;
     }
 
-    /* FOOTER */
-
-    #footer-admin {
-        padding: 18px 10px;
+    footer {
+        padding: 17px 10px;
     }
 
-    #footer-admin p {
+    footer p {
         font-size: 11px;
-    }
-
-    /* LISTA DE DOCENTES */
-
-    #header-lista nav {
-        flex-direction: column;
-        align-items: stretch;
-        height: auto;
-        padding: 12px 0;
-    }
-
-    #header-lista input[type="search"] {
-        width: 100%;
-    }
-
-    .docencia {
-        flex-wrap: wrap;
-    }
-
-    .docencia p {
-        font-size: 0.95rem;
-    }
-
-    .btn-ver-docente {
-        width: 100%;
-        padding: 12px;
-        font-size: 1rem;
     }
 }

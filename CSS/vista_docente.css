@@ -1,0 +1,351 @@
+
+/* =========================================
+   DOCENCIA ACTIVA CERTUS
+   VISTA DEL DOCENTE
+========================================= */
+
+/* CONFIGURACIÓN GENERAL */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f4f9;
+    color: #263445;
+    min-height: 100vh;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+#header-lista {
+    width: 100%;
+    background: #06245d;
+    border-bottom: 4px solid #1fa3ec;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+#header-lista nav {
+    max-width: 1250px;
+    height: 75px;
+    margin: auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#header-lista nav a:first-child {
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 6px;
+}
+
+#header-lista nav a:first-child:hover {
+    background: #1fa3ec;
+}
+
+#header-lista nav img {
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+
+.vista_docente {
+    width: 92%;
+    max-width: 1250px;
+    margin: 35px auto;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+/* =========================================
+   PANEL IZQUIERDO
+   INFORMACIÓN DEL DOCENTE
+========================================= */
+
+.info-docente {
+    background: white;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    border-top: 5px solid #1fa3ec;
+    text-align: center;
+}
+
+.cabecera-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+#btn-cerrar-ver {
+    position: absolute;
+    top: -12px;
+    right: -7px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #06245d;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-cerrar-ver:hover {
+    background: #d9534f;
+}
+
+#docente-foto {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #1fa3ec;
+    background: #e8edf5;
+    margin: 15px 0;
+}
+
+#docente-nombre {
+    color: #06245d;
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+.datos-docente {
+    border-top: 1px solid #e1e7f0;
+    border-bottom: 1px solid #e1e7f0;
+    padding: 18px 5px;
+    margin: 15px 0;
+}
+
+.campo-dato {
+    font-size: 13px;
+    color: #596579;
+    margin-bottom: 14px;
+    overflow-wrap: anywhere;
+}
+
+.campo-dato:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================
+   BOTÓN ESTADO DEL PERFIL
+========================================= */
+
+#btn-estado-perfil {
+    width: 100%;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 7px;
+    background: #d9534f;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-estado-perfil:hover {
+    background: #bd3632;
+}
+
+/* Cuando el perfil esté habilitado */
+#btn-estado-perfil.btn-habilitar {
+    background: #28a745;
+}
+
+#btn-estado-perfil.btn-habilitar:hover {
+    background: #218838;
+}
+
+/* =========================================
+   PANEL DERECHO
+   HISTORIAL DE CAPACITACIONES
+========================================= */
+
+.panel-derecho {
+    min-width: 0;
+}
+
+.caja-capacitaciones {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+}
+
+.caja-capacitaciones hr {
+    border: none;
+    height: 2px;
+    background: #dce3ed;
+    margin: 18px 0;
+}
+
+.caja-capacitaciones > h2 {
+    color: #06245d;
+    text-align: center;
+    font-size: 22px;
+    padding: 10px 0;
+}
+
+/* =========================================
+   GRUPOS DE CAPACITACIONES
+========================================= */
+
+.grupo-capacitacion {
+    padding: 18px 15px;
+    margin: 15px 0;
+    background: #f7f9fc;
+    border-left: 4px solid #1fa3ec;
+    border-radius: 7px;
+    min-height: 75px;
+}
+
+.grupo-capacitacion h3 {
+    color: #06245d;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+/* Elementos dinámicos que cargue JavaScript */
+
+.grupo-capacitacion p {
+    color: #596579;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+/* Barras de progreso dinámicas */
+
+.grupo-capacitacion progress {
+    width: 100%;
+    height: 12px;
+    accent-color: #1fa3ec;
+    margin: 8px 0;
+}
+
+/* =========================================
+   TABLETS
+========================================= */
+
+@media (max-width: 850px) {
+
+    .vista_docente {
+        width: 94%;
+        grid-template-columns: 260px 1fr;
+        gap: 15px;
+    }
+
+    .info-docente {
+        padding: 20px 15px;
+    }
+
+    .caja-capacitaciones {
+        padding: 18px;
+    }
+
+    .caja-capacitaciones > h2 {
+        font-size: 19px;
+    }
+}
+
+/* =========================================
+   CELULARES
+========================================= */
+
+@media (max-width: 600px) {
+
+    #header-lista nav {
+        height: 65px;
+        padding: 0 15px;
+    }
+
+    #header-lista nav img {
+        width: 100px;
+    }
+
+    .vista_docente {
+        width: 92%;
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .info-docente {
+        width: 100%;
+        padding: 22px 18px;
+    }
+
+    #docente-foto {
+        width: 100px;
+        height: 100px;
+    }
+
+    #docente-nombre {
+        font-size: 19px;
+    }
+
+    .panel-derecho {
+        width: 100%;
+    }
+
+    .caja-capacitaciones {
+        padding: 18px 13px;
+    }
+
+    .caja-capacitaciones > h2 {
+        font-size: 18px;
+    }
+
+    .grupo-capacitacion {
+        padding: 15px 12px;
+    }
+
+    .grupo-capacitacion h3 {
+        font-size: 13px;
+    }
+}
+
+/* =========================================
+   CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 380px) {
+
+    .vista_docente {
+        width: 94%;
+    }
+
+    .caja-capacitaciones > h2 {
+        font-size: 16px;
+    }
+
+    .grupo-capacitacion h3 {
+        font-size: 12px;
+    }
+
+    #docente-nombre {
+        font-size: 17px;
+    }
+}

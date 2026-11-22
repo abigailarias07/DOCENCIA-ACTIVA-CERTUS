@@ -1,164 +1,458 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-:root {
-  --azul-oscuro: #00205b;
-  --azul-claro: #a2bcee;
-  --campo: #fffafa;
-}
+/* =========================================
+   DOCENCIA ACTIVA CERTUS
+   LOGIN Y RECUPERACIÓN DE CONTRASEÑA
+========================================= */
+
+/* CONFIGURACIÓN GENERAL */
 
 * {
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
+html,
+body {
+    width: 100%;
+    min-height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
-  color: #000;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f4f9;
+    color: #263445;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
 }
 
-/* Encabezado y Logo */
+/* =========================================
+   ENCABEZADO
+========================================= */
+
 .encabezado {
-  text-align: center;
-  padding: 24px 0 16px;
+    width: 100%;
+    min-height: 85px;
+
+    background: #06245d;
+    border-bottom: 4px solid #1fa3ec;
+
+    display: flex;
+    align-items: center;
+
+    padding: 10px 7%;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Contenedor principal y Tarjeta */
-.contenedor-login {
-  width: 100%;
-  padding: 10px 16px 40px;
-  display: flex;
-  justify-content: center;
+.logo-certus {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
+
+.encabezado img {
+    width: 145px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+
+.contenedor-login {
+    width: 100%;
+
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 45px 20px;
+}
+
+/* =========================================
+   TARJETA DE LOGIN
+========================================= */
 
 .tarjeta-login {
-  width: 640px;
-  max-width: 100%;
-  border: 1px solid #000;
-  border-radius: 40px;
-  background: var(--azul-claro);
-  padding: 36px 20px 32px;
+    width: 100%;
+    max-width: 470px;
+
+    padding: 40px 42px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf1;
+    border-top: 5px solid #1fa3ec;
+    border-radius: 14px;
+
+    box-shadow: 0 8px 30px rgba(0, 32, 96, 0.10);
 }
 
-/* Títulos */
+/* IMPORTANTE:
+   Mantiene oculta la sección de recuperación
+   hasta que JavaScript la active.
+*/
+
+[hidden] {
+    display: none !important;
+}
+
+/* =========================================
+   TÍTULOS
+========================================= */
+
 .titulo-login {
-  text-align: center;
-  padding: 0 15px;
+    text-align: center;
+    margin-bottom: 32px;
 }
 
 .titulo-login h1 {
-  margin: 0 0 8px;
-  font-size: 24px;
-  font-weight: 700;
+    color: #06245d;
+
+    font-size: 27px;
+    font-weight: bold;
+
+    margin-bottom: 12px;
 }
 
 .titulo-login p {
-  margin: 0 0 32px;
-  font-size: 18px;
-  font-weight: 400;
+    color: #68758a;
+
+    font-size: 14px;
+    line-height: 1.6;
 }
 
-/* Casillas del formulario */
-form {
-  width: 456px;
-  max-width: 90%;
-  margin: 0 auto;
-}
+/* =========================================
+   CAMPOS DEL FORMULARIO
+========================================= */
 
 .campo-formulario {
-  margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+    margin-bottom: 21px;
 }
 
-label {
-  display: block;
-  font-size: 15px;
-  margin-bottom: 6px;
+.campo-formulario label {
+    color: #263445;
+
+    font-size: 14px;
+    font-weight: bold;
 }
 
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 14px;
-  font-size: 14px;
-  font-family: inherit;
-  background: var(--campo);
-  border: 1px solid #000;
-  border-radius: 8px;
-  outline: none;
+.campo-formulario input {
+    width: 100%;
+    height: 46px;
+
+    padding: 0 14px;
+
+    border: 1px solid #ccd4df;
+    border-radius: 7px;
+
+    outline: none;
+
+    background: #fafbfc;
+
+    font-size: 14px;
+
+    transition: 0.3s ease;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-  box-shadow: 0 0 0 3px rgba(0, 32, 91, 0.35);
+.campo-formulario input:focus {
+    border-color: #1fa3ec;
+
+    box-shadow: 0 0 0 3px rgba(31, 163, 236, 0.12);
+
+    background: #ffffff;
 }
 
-/* Checkbox */
+.campo-formulario input::placeholder {
+    color: #9aa5b3;
+}
+
+/* =========================================
+   RECORDAR CONTRASEÑA
+========================================= */
+
 .campo-checkbox {
-  margin-bottom: 28px;
-  display: flex;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin: 8px 0 18px;
 }
 
-input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  margin: 0 8px 0 0;
-  cursor: pointer;
+.recordar-opcion {
+    display: flex;
+    align-items: center;
+    gap: 7px;
 }
 
-input[type="checkbox"] + label {
-  display: inline;
-  margin-bottom: 0;
-  cursor: pointer;
+.recordar-opcion input {
+    accent-color: #06245d;
+    cursor: pointer;
 }
 
-/* Botón y texto legal */
+.recordar-opcion label {
+    color: #536174;
+
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.campo-checkbox a {
+    color: #087fc1;
+
+    font-size: 12px;
+
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+.campo-checkbox a:hover {
+    color: #06245d;
+    text-decoration: underline;
+}
+
+/* =========================================
+   MENSAJES DE VALIDACIÓN
+========================================= */
+
+#mensaje-login,
+#mensaje-recuperar {
+    min-height: 0;
+
+    color: #d9534f;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    text-align: center;
+
+    margin: 8px 0;
+}
+
+/* =========================================
+   BOTÓN INGRESAR
+========================================= */
+
 .acciones-formulario {
-  text-align: center;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .boton-ingresar {
-  background: var(--azul-oscuro);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 14px 64px;
-  font-size: 18px;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background 0.2s;
+    width: 100%;
+    min-height: 47px;
+
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #06245d;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
 }
 
 .boton-ingresar:hover {
-  background: #0a3a8f;
+    background: #0b397f;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 12px rgba(6, 36, 93, 0.20);
 }
+
+.boton-ingresar:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   TEXTO DE POLÍTICA DE PRIVACIDAD
+========================================= */
 
 #parrafo-peque {
-  font-size: 12px;
-  margin: 16px 0 0;
+    margin-top: 17px;
+
+    color: #8993a1;
+
+    font-size: 11px;
+    line-height: 1.5;
 }
 
-/* Footer */
-hr {
-  display: none;
+/* =========================================
+   RECUPERAR CONTRASEÑA
+========================================= */
+
+#seccion-recuperar .titulo-login {
+    margin-bottom: 28px;
 }
 
-footer {
-  margin-top: auto;
-  background: var(--azul-oscuro);
-  color: #fff;
-  padding: 24px 16px;
-  text-align: center;
+.volver-login {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.volver-login a {
+    color: #087fc1;
+
+    font-size: 13px;
+
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+.volver-login a:hover {
+    color: #06245d;
+    text-decoration: underline;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer-login {
+    width: 100%;
+
+    min-height: 58px;
+
+    padding: 18px 15px;
+
+    background: #06245d;
+    border-top: 3px solid #1fa3ec;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
 }
 
 #footers {
-  margin: 0;
-  font-size: 14px;
+    color: #ffffff;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   TABLETS
+========================================= */
+
+@media (max-width: 768px) {
+
+    .encabezado {
+        padding: 12px 5%;
+    }
+
+    .contenedor-login {
+        padding: 35px 20px;
+    }
+
+    .tarjeta-login {
+        max-width: 450px;
+        padding: 35px 30px;
+    }
+
+}
+
+/* =========================================
+   CELULARES
+========================================= */
+
+@media (max-width: 480px) {
+
+    .encabezado {
+        min-height: 70px;
+        justify-content: center;
+    }
+
+    .encabezado img {
+        width: 125px;
+    }
+
+    .contenedor-login {
+        padding: 25px 15px;
+    }
+
+    .tarjeta-login {
+        padding: 30px 22px;
+        border-radius: 12px;
+    }
+
+    .titulo-login h1 {
+        font-size: 23px;
+    }
+
+    .titulo-login p {
+        font-size: 13px;
+    }
+
+    .campo-formulario input {
+        height: 44px;
+        font-size: 13px;
+    }
+
+    .campo-checkbox {
+        align-items: flex-start;
+    }
+
+    .recordar-opcion label {
+        font-size: 11px;
+    }
+
+    .campo-checkbox a {
+        font-size: 11px;
+    }
+
+    .boton-ingresar {
+        min-height: 45px;
+        font-size: 13px;
+    }
+
+    #footers {
+        font-size: 10px;
+    }
+
+}
+
+/* =========================================
+   CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 350px) {
+
+    .tarjeta-login {
+        padding: 25px 16px;
+    }
+
+    .titulo-login h1 {
+        font-size: 21px;
+    }
+
+    .campo-checkbox {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
 }

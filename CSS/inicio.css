@@ -1,0 +1,281 @@
+
+/* =========================================
+   DOCENCIA ACTIVA CERTUS
+   PANTALLA PRINCIPAL DE INICIO
+========================================= */
+
+/* CONFIGURACIÓN GENERAL */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+.pagina-inicio {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f1f4f9;
+    color: #263445;
+}
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+
+.contenedor-inicio {
+    width: 100%;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 50px 20px;
+}
+
+/* =========================================
+   LOGO CERTUS
+========================================= */
+
+.logo-inicio {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.logo-inicio img {
+    width: 155px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* =========================================
+   CONTENIDO DE BIENVENIDA
+========================================= */
+
+.contenido-inicio {
+    width: 100%;
+    max-width: 650px;
+
+    padding: 40px;
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    box-shadow: 0 8px 30px rgba(0, 32, 96, 0.09);
+
+    text-align: center;
+}
+
+/* ETIQUETA */
+
+.etiqueta-inicio {
+    display: inline-block;
+
+    color: #168fc9;
+
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    margin-bottom: 15px;
+}
+
+/* TÍTULO */
+
+.contenido-inicio h1 {
+    color: #06245d;
+
+    font-size: 30px;
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+/* DESCRIPCIÓN */
+
+.descripcion-inicio {
+    color: #68758a;
+
+    font-size: 15px;
+    line-height: 1.7;
+
+    margin-bottom: 35px;
+}
+
+/* =========================================
+   OPCIONES DE PERFIL
+========================================= */
+
+.opciones-perfil {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+/* BOTONES */
+
+.boton-perfil {
+    min-height: 115px;
+
+    padding: 20px 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    transition: all 0.3s ease;
+}
+
+/* ADMINISTRADOR */
+
+.boton-administrador {
+    background: #06245d;
+    border-bottom: 4px solid #03173d;
+}
+
+.boton-administrador:hover {
+    background: #0b397f;
+    transform: translateY(-4px);
+
+    box-shadow: 0 7px 15px rgba(6, 36, 93, 0.20);
+}
+
+/* DOCENTE */
+
+.boton-docente {
+    background: #0056b3;
+    border-bottom: 4px solid #003d80;
+}
+
+.boton-docente:hover {
+    background: #0877d5;
+    transform: translateY(-4px);
+
+    box-shadow: 0 7px 15px rgba(0, 86, 179, 0.20);
+}
+
+/* TEXTO DE LOS BOTONES */
+
+.titulo-boton {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.descripcion-boton {
+    font-size: 11px;
+    opacity: 0.85;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer-inicio {
+    width: 100%;
+
+    padding: 20px 15px;
+
+    background: #06245d;
+    border-top: 4px solid #1fa3ec;
+
+    text-align: center;
+}
+
+.footer-inicio p {
+    color: #ffffff;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   TABLETS
+========================================= */
+
+@media (max-width: 768px) {
+
+    .contenido-inicio {
+        max-width: 570px;
+        padding: 35px 25px;
+    }
+
+    .contenido-inicio h1 {
+        font-size: 26px;
+    }
+
+}
+
+/* =========================================
+   CELULARES
+========================================= */
+
+@media (max-width: 600px) {
+
+    .contenedor-inicio {
+        padding: 30px 16px;
+    }
+
+    .logo-inicio img {
+        width: 130px;
+    }
+
+    .logo-inicio {
+        margin-bottom: 20px;
+    }
+
+    .contenido-inicio {
+        width: 100%;
+        padding: 30px 20px;
+        border-radius: 12px;
+    }
+
+    .contenido-inicio h1 {
+        font-size: 23px;
+    }
+
+    .descripcion-inicio {
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+
+    .opciones-perfil {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .boton-perfil {
+        min-height: 85px;
+    }
+
+    .footer-inicio {
+        padding: 17px 12px;
+    }
+
+    .footer-inicio p {
+        font-size: 10px;
+    }
+
+}
