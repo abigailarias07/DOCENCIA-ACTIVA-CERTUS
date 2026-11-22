@@ -4,35 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DOCENCIA ACTIVA CERTUS - Perfil Administrador</title>
-  <link rel="stylesheet" href="CSS/admin.css">
+  <link rel="stylesheet" href="/CSS/capacitaciones.css">
 </head>
 <body>
 
-   <header>
-        <nav>
-            <img src="/img/certus-logo001.png" alt="Logo Certus" width="100">
-            <a href="capacitaciones.html">Subir Capacitaciones</a>
-            <a href="administrar_docentes.html">Monitorear Docentes</a>
-            <a href="mi_perfil.html">Mi Perfil</a>
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <img src="img/certus-logo001.png" alt="Logo Certus" width="100">
+      <a href="capacitaciones.html">Subir Capacitaciones</a>
+      <a href="administrar_docentes.html">Monitorear Docentes</a>
+      <a href="mi_perfil.html">Mi Perfil</a>
+    </nav>
+  </header>
 
   <main class="contenedor-admin">
 
-   
     <section class="perfil-admin">
       <div class="info-personal">
-        <img src="img/icono-docente.png" alt="Foto Administrador" width="90">
-        <div class="detalles-admin">
-          <h1>Nombre del Administrador</h1>
-          <p class="correo-admin">admin.docencia@certus.edu.pe</p>
-          <p class="dni-admin">DNI: 00000000</p>
-          <p class="contrasenia">contrasenia</p>
+       <div class="detalles-admin">
+          <h1 id="admin-nombre">Cargando administrador...</h1>
+          <p class="correo-admin" id="admin-correo">correo@certus.edu.pe</p>
+          <p class="dni-admin" id="admin-dni">DNI: --------</p>
+          <p class="contrasenia">Contraseña: ••••••••</p>
         </div>
       </div>
 
       <div class="acciones-perfil">
         <button type="button" id="btn-editar-clave" class="btn-secundario">Cambiar contraseña</button>
+        <button type="button" id="btn-cerrar-sesion" class="btn-secundario" style="background-color: #d9534f; color: white;">Cerrar sesión</button>
       </div>
     </section>
 
@@ -42,13 +41,13 @@
       <h2>PANEL DE GESTIÓN</h2>
 
       <div class="grid-modulos">
-        <!-- Acceso a Docentes -->
+        <!-- Acceso a Docentes (apunta a la lista general de docentes) -->
         <article class="tarjeta-modulo">
           <div class="contenido-modulo">
             <h3>GESTIÓN DE DOCENTES</h3>
             <p>Registra nuevos perfiles docentes, consulta sus datos y revisa el estado de sus cuentas.</p>
           </div>
-          <a href="vista_docente.html" class="btn-ir-modulo">INGRESAR A DOCENTES</a>
+          <a href="administrar_docentes.html" class="btn-ir-modulo">INGRESAR A DOCENTES</a>
         </article>
 
         <!-- Acceso a Capacitaciones -->
@@ -76,14 +75,16 @@
         </div>
 
         <div class="campo-form">
-          <label for="clave-nueva">Nueva contraseña:</label>
-          <input type="password" id="clave-nueva" name="clave_nueva" required>
+          <label for="clave-nueva">Nueva contraseña (mínimo 6 caracteres):</label>
+          <input type="password" id="clave-nueva" name="clave_nueva" minlength="6" required>
         </div>
 
         <div class="campo-form">
           <label for="clave-confirmar">Confirmar nueva contraseña:</label>
-          <input type="password" id="clave-confirmar" name="clave_confirmar" required>
+          <input type="password" id="clave-confirmar" name="clave_confirmar" minlength="6" required>
         </div>
+
+        <p id="mensaje-clave" style="font-size: 0.9rem; margin: 10px 0;"></p>
 
         <button type="submit" class="btn-guardar">GUARDAR CAMBIOS</button>
       </form>
@@ -95,17 +96,6 @@
     <p>&copy; 2026 EDUCACIÓN ACTIVA CERTUS. Todos los derechos reservados.</p>
   </footer>
 
-  <script>
-    const modalClave = document.getElementById('modal-clave-admin');
-
-    document.getElementById('btn-editar-clave').onclick = function() {
-      modalClave.showModal();
-    };
-
-    document.getElementById('btn-cerrar-clave').onclick = function() {
-      modalClave.close();
-    };
-  </script>
-
+  <script type="module" src="JS/perfil-admin.js"></script>
 </body>
 </html>

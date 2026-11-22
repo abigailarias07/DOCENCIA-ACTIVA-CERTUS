@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DOCENCIA ACTIVA CERTUS - Docentes</title>
-  <link rel="stylesheet" href="estilos.css">
+  <title>DOCENCIA ACTIVA CERTUS - Perfil Docente</title>
+  <link rel="stylesheet" href="/CSS/capacitaciones.css">
 </head>
 <body>
 
@@ -12,28 +12,28 @@
     <nav>
       <a href="index.html" aria-label="Volver">&lt;</a>
       <a href="index.html">
-        <img src="/img/certus-logo001.png" alt="Logo Certus" width="100">
+         <img src="img/certus-logo001.png" alt="Logo Certus" width="100">
       </a>
     </nav>
   </header>
 
-  
   <main class="vista_docente">
 
     <!-- Panel Izquierdo: Información del Docente -->
     <aside class="info-docente">
       <div class="cabecera-perfil">
         <button type="button" id="btn-cerrar-ver" aria-label="Cerrar detalle">X</button>
-        <img src="/img/" alt="Foto docente" width="80">
-        <h2>Nombre del docente</h2>
+        <img id="docente-foto" src="img/icono-docente.png" alt="Foto docente" width="80">
+        <h2 id="docente-nombre">Cargando docente...</h2>
       </div>
 
       <div class="datos-docente">
-        <p class="campo-dato">Correo electrónico</p>
-        <p class="campo-dato">DNI del docente</p>
+        <p class="campo-dato" id="docente-correo">Correo electrónico</p>
+        <p class="campo-dato" id="docente-dni">DNI del docente</p>
       </div>
 
-      <button type="button" class="btn-deshabilitar">DESHABILITAR PERFIL</button>
+      <!-- Botón dinámico: cambia entre DESHABILITAR PERFIL y HABILITAR PERFIL -->
+      <button type="button" id="btn-estado-perfil" class="btn-deshabilitar">DESHABILITAR PERFIL</button>
     </aside>
 
     <!-- Panel Derecho: Historial de Capacitaciones -->
@@ -42,29 +42,24 @@
         <hr>
         <h2>HISTORIAL DE CAPACITACIONES</h2>
         <hr>
-        <div class="grupo-capacitacion">
+        
+        <div class="grupo-capacitacion" id="lista-asignadas">
           <h3>CAPACITACIONES ASIGNADAS</h3>
-          <article class="capacitacion-asignado">
-            <h4>Excel Básico para Docentes</h4>
-            <img src="img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
-          </article>
+          <!-- Aquí JS cargará las asignadas desde MySQL -->
         </div>
-<hr>
-        <div class="grupo-capacitacion">
+        
+        <hr>
+        
+        <div class="grupo-capacitacion" id="lista-progreso">
           <h3>CAPACITACIONES EN PROGRESO</h3>
-          <article class="capacitaciones-progreso">
-            <h4>Excel Básico para Docentes</h4>
-            <img src="img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
-            <div class="porcentaje-progreso"></div>
-          </article>
+          <!-- Aquí JS cargará las que están en progreso con su barra/porcentaje -->
         </div>
-     <hr>
-        <div class="grupo-capacitacion">
+        
+        <hr>
+        
+        <div class="grupo-capacitacion" id="lista-culminadas">
           <h3>CAPACITACIONES CULMINADAS</h3>
-          <article class="capacitaciones-culminadas">
-            <h4>Excel Básico para Docentes</h4>
-            <img src="img/curso_excel.png" alt="Excel Básico para Docentes" width="80">
-          </article>
+          <!-- Aquí JS cargará las culminadas -->
         </div>
 
       </div>
@@ -72,5 +67,6 @@
 
   </main>
 
+  <script type="module" src="JS/vista-docente.js"></script>
 </body>
 </html>

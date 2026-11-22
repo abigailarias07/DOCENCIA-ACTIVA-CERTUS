@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DOCENCIA ACTIVA CERTUS - Docentes</title>
-  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="/CSS/capacitaciones.css">
 </head>
 <body>
 
@@ -14,17 +14,21 @@
       <a href="index.html">
         <img src="img/certus-logo001.png" alt="Logo Certus" width="100">
       </a>
-      <input type="search" placeholder="Buscar docente">
+      <input type="search" id="buscador-docente" placeholder="Buscar docente por nombre, correo o DNI">
     </nav>
   </header>
 
   <main>
+    <!-- BOTÓN PARA ABRIR EL MODAL DE CREAR DOCENTE -->
     <section id="agregar-docente">
-      <button type="button" id="btn-nuevo-docente">+</button>
+      <button type="button" id="btn-nuevo-docente">CREAR NUEVO DOCENTE +</button>
     </section>
 
+    <!-- LISTA DINÁMICA DE DOCENTES DESDE MYSQL -->
     <section id="lista-docentes">
       <h2>DOCENTES DE CERTUS</h2>
+      
+      <!-- Tarjeta de ejemplo (se reemplazará automáticamente cuando cargue la base de datos) -->
       <article class="docencia">
         <img src="img/icono-docente.png" alt="Foto docente" width="50">
         <p>Nombre del docente</p>
@@ -39,18 +43,23 @@
 
       <form id="form-nuevo-docente">
         <div class="campo-modal">
+          <label for="nombre-docente">Nombre completo del docente:</label>
+          <input type="text" id="nombre-docente" name="nombre" placeholder="Ej. María Gómez" required>
+        </div>
+
+        <div class="campo-modal">
           <label for="correo-docente">Ingrese correo electrónico/ID:</label>
-          <input type="text" id="correo-docente" name="correo" required>
+          <input type="email" id="correo-docente" name="correo" placeholder="docente@certus.edu.pe" required>
         </div>
 
         <div class="campo-modal">
           <label for="dni-docente">Ingrese DNI:</label>
-          <input type="text" id="dni-docente" name="dni" required>
+          <input type="text" id="dni-docente" name="dni" maxlength="8" placeholder="8 dígitos" required>
         </div>
 
         <div class="campo-modal">
-          <label for="password-docente">Cree la contraseña:</label>
-          <input type="password" id="password-docente" name="password" required>
+          <label for="password-docente">Contraseña generada automáticamente:</label>
+          <input type="text" id="password-docente" name="password" readonly required>
         </div>
 
         <div class="fila-inferior">
@@ -58,11 +67,11 @@
             <label for="categoria-docente">Seleccione la categoría:</label>
             <select id="categoria-docente" name="categoria" required>
               <option value="" disabled selected>Seleccione una categoría</option>
-              <option value="administracion">Escuela de Administración</option>
-              <option value="DDS">Escuela de DDS</option>
-              <option value="Admi-Bancaria">Admi. Bancaria</option>
+              <option value="ingles">TODOS LOS DOCENTES</option>
+              <option value="ingles">Escuela de Inglés</option>
+              <option value="comunicaciones">Escuela de Comunicaciones</option>
+              <option value="tic">Escuela de TIC</option>
               <option value="ti">Escuela de TI</option>
-              <option value="administrador">ADMINISTRADOR</option>
             </select>
           </div>
 
@@ -76,16 +85,7 @@
     <p>&copy; 2026 EDUCACIÓN ACTIVA CERTUS. Todos los derechos reservados.</p>
   </footer>
 
-  <script>
-    const modal = document.getElementById('modal-crear-docente');
-
-    document.getElementById('btn-nuevo-docente').onclick = function() {
-      modal.showModal();
-    };
-
-    document.getElementById('btn-cerrar-modal').onclick = function() {
-      modal.close();
-    };
-  </script>
+  <!-- Enlace al archivo JavaScript modular -->
+  <script type="module" src="/JS/docentes.js"></script>
 </body>
 </html>

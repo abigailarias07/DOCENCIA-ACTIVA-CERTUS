@@ -13,14 +13,18 @@
   </header>
 
   <main class="contenedor-login">
-    <section class="tarjeta-login">
+    
+    <!-- ==========================================
+        INICIAR SESIÓN 
+         ========================================== -->
+    <section class="tarjeta-login" id="seccion-login">
       
       <div class="titulo-login">
         <h1>INICIAR SESIÓN</h1>
         <p>Bienvenido a la plataforma educativa DOCENCIA ACTIVA CERTUS</p>
       </div>
 
-      <form action="#" method="post">
+      <form id="form-login">
         <div class="campo-formulario">
           <label for="correo">Correo Institucional:</label>
           <input type="email" id="correo" name="correo" placeholder="Ingrese su correo institucional" required>
@@ -31,10 +35,18 @@
           <input type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese su clave de acceso" required>
         </div>
 
-        <div class="campo-checkbox">
-          <input type="checkbox" id="recordar_contrasenia" name="recordar_contrasenia">
-          <label for="recordar_contrasenia">Recordar inicio de sesión</label>
+        <div class="campo-checkbox" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <input type="checkbox" id="recordar_contrasenia" name="recordar_contrasenia">
+            <label for="recordar_contrasenia">Recordar inicio de sesión</label>
+          </div>
+
+          <a href="#" id="btn-ir-recuperar" style="font-size: 0.85rem; color: #0056b3; text-decoration: none;">
+            ¿Olvidaste tu contraseña?
+          </a>
         </div>
+
+        <p id="mensaje-login" style="color: #d9534f; font-size: 0.9rem; text-align: center; margin: 10px 0;"></p>
 
         <div class="acciones-formulario">
           <button type="submit" class="boton-ingresar">Ingresar</button>
@@ -43,6 +55,39 @@
       </form>
 
     </section>
+
+    <!-- ==========================================
+         RECUPERAR CONTRASEÑA CON FIREBASE 
+         ========================================== -->
+    <section class="tarjeta-login" id="seccion-recuperar" hidden>
+      
+      <div class="titulo-login">
+        <h1>RECUPERAR CLAVE</h1>
+        <p>Ingresa tu correo institucional y te enviaremos un enlace de Firebase para restablecer tu contraseña.</p>
+      </div>
+
+      <form id="form-recuperar">
+        <div class="campo-formulario">
+          <label for="correo-recuperar">Correo Institucional:</label>
+          <input type="email" id="correo-recuperar" name="correo-recuperar" placeholder="ejemplo@certus.edu.pe" required>
+        </div>
+
+        <!-- Mensaje de confirmación o error al enviar el correo -->
+        <p id="mensaje-recuperar" style="font-size: 0.9rem; text-align: center; margin: 10px 0;"></p>
+
+        <div class="acciones-formulario">
+          <button type="submit" class="boton-ingresar">Enviar enlace de recuperación</button>
+          
+          <p style="margin-top: 15px; text-align: center;">
+            <a href="#" id="btn-volver-login" style="font-size: 0.9rem; color: #0056b3; text-decoration: none;">
+              &larr; Volver a Iniciar Sesión
+            </a>
+          </p>
+        </div>
+      </form>
+
+    </section>
+
   </main>
 
   <hr>
@@ -51,6 +96,7 @@
     <p id="footers">&copy; 2026 EDUCACIÓN ACTIVA CERTUS. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="script.js"></script>
+  
+  <script type="module" src="/JS/login.js"></script>
 </body>
 </html>
