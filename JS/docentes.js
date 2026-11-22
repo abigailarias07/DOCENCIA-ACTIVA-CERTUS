@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Pasamos el ID del docente por la URL hacia vista_docente.html
       articulo.innerHTML = `
-        <img src="${docente.foto || 'img/icono-docente.png'}" alt="Foto docente" width="50">
+        <img src="${docente.foto || '../img/icono-docente.png'}" alt="Foto docente" width="50">
         <p>${docente.nombre || docente.correo}</p>
         <a href="vista_docente.html?id=${docente.id}" class="btn-ver-docente">VER DOCENTE</a>
       `;

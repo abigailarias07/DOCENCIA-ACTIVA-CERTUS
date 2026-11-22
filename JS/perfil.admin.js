@@ -5,7 +5,7 @@ import {
   updatePassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// URL de tu API REST para perfil y cambio de clave en MySQL
+// URL de tu API REST para perfil, foto y cambio de clave en MySQL
 const API_URL_ADMIN = "http://localhost:3000/api/usuarios";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -25,6 +25,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const txtCorreo = document.getElementById("admin-correo");
   const txtDni = document.getElementById("admin-dni");
   const imgFoto = document.getElementById("admin-foto");
+  const inputFotoAdmin = document.getElementById("input-foto-admin");
+  const btnCambiarFoto = document.getElementById("btn-cambiar-foto");
 
   const modalClave = document.getElementById("modal-clave-admin");
   const btnEditarClave = document.getElementById("btn-editar-clave");
@@ -41,6 +43,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (usuarioSesion.dni) {
     txtDni.textContent = `DNI: ${usuarioSesion.dni}`;
   }
+  if (usuarioSesion.foto && imgFoto) {
+    imgFoto.src = usuarioSesion.foto;
+  }
 
   // Consultamos a MySQL para traer los datos completos actualizados (como DNI o foto)
   try {
@@ -51,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       txtNombre.textContent = datos.usuario.nombre;
       txtCorreo.textContent = datos.usuario.correo;
       txtDni.textContent = `DNI: ${datos.usuario.dni || "No registrado"}`;
-      if (datos.usuario.foto) {
+      if (datos.usuario.foto && imgFoto) {
         imgFoto.src = datos.usuario.foto;
       }
     }
@@ -60,7 +65,61 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // =========================================================
-  // 3. CONTROL DEL MODAL DE CONTRASEÑA
+  // 3. CAMBIAR FOTO DE PERFIL DESDE EL COMPUTADOR (ESTILO IG)
+  // =========================================================
+  const abrirSelectorFoto = () => inputFotoAdmin && inputFotoAdmin.click();
+
+  if (imgFoto) imgFoto.addEventListener("click", abrirSelectorFoto);
+  if (btnCambiarFoto) btnCambiarFoto.addEventListener("click", abrirSelectorFoto);
+
+  if (inputFotoAdmin) {
+    inputFotoAdmin.addEventListener("change", async (e) => {
+      const archivo = e.target.files[0];
+      if (!archivo) return;
+
+      // Validar que sea una imagen
+      if (!archivo.type.startsWith("image/")) {
+        alert("Por favor selecciona un archivo de imagen válido (JPG, PNG, etc.).");
+        return;
+      }
+
+      // Vista previa instantánea en pantalla
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const fotoBase64 = ev.target.result;
+        imgFoto.src = fotoBase64;
+
+        // Guardamos también en la sesión local para que persista al recargar mientras no haya backend
+        usuarioSesion.foto = fotoBase64;
+        if (localStorage.getItem("usuario_certus")) {
+          localStorage.setItem("usuario_certus", JSON.stringify(usuarioSesion));
+        } else {
+          sessionStorage.setItem("usuario_certus", JSON.stringify(usuarioSesion));
+        }
+      };
+      reader.readAsDataURL(archivo);
+
+      // Enviar la foto al servidor MySQL (API REST)
+      const formData = new FormData();
+      formData.append("foto", archivo);
+
+      try {
+        const respuesta = await fetch(`${API_URL_ADMIN}/${usuarioSesion.id}/foto`, {
+          method: "PUT",
+          body: formData
+        });
+        const datos = await respuesta.json();
+        if (respuesta.ok && datos.exito && datos.fotoUrl) {
+          imgFoto.src = datos.fotoUrl;
+        }
+      } catch (error) {
+        console.warn("Foto actualizada en vista local (servidor MySQL aún apagado).");
+      }
+    });
+  }
+
+  // =========================================================
+  // 4. CONTROL DEL MODAL DE CONTRASEÑA
   // =========================================================
   btnEditarClave.addEventListener("click", () => {
     formCambiarClave.reset();
@@ -73,7 +132,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // =========================================================
-  // 4. ACTUALIZAR CONTRASEÑA EN FIREBASE Y MYSQL
+  // 5. ACTUALIZAR CONTRASEÑA EN FIREBASE Y MYSQL
   // =========================================================
   formCambiarClave.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -82,7 +141,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const claveNueva = document.getElementById("clave-nueva").value;
     const claveConfirmar = document.getElementById("clave-confirmar").value;
 
-    // Validar que ambas contraseñas nuevas coincidan
     if (claveNueva !== claveConfirmar) {
       mensajeClave.style.color = "#d9534f";
       mensajeClave.textContent = "La nueva contraseña y su confirmación no coinciden.";
@@ -99,7 +157,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     mensajeClave.textContent = "Actualizando contraseña...";
 
     try {
-      // PASO A: Actualizar en Firebase (si el usuario está autenticado en Firebase)
       const userFirebase = auth.currentUser;
       if (userFirebase) {
         const credencial = EmailAuthProvider.credential(userFirebase.email, claveActual);
@@ -107,7 +164,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         await updatePassword(userFirebase, claveNueva);
       }
 
-      // PASO B: Actualizar en MySQL vía API REST
       const respuesta = await fetch(`${API_URL_ADMIN}/${usuarioSesion.id}/password`, {
         method: "PUT",
         headers: {
@@ -145,7 +201,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // =========================================================
-  // 5. CERRAR SESIÓN (BORRA LA SESIÓN GUARDADA EN LA PC)
+  // 6. CERRAR SESIÓN (BORRA LA SESIÓN GUARDADA EN LA PC)
   // =========================================================
   btnCerrarSesion.addEventListener("click", () => {
     localStorage.removeItem("usuario_certus");

@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
           : "";
 
       articulo.innerHTML = `
-        <img src="${curso.portada || 'img/curso_excel.png'}" alt="${curso.titulo}" width="100" style="cursor: pointer;">
+        <img src="${curso.portada || '../img/curso_excel.png'}" alt="${curso.titulo}" width="100" style="cursor: pointer;">
         <div class="info-curso">
           <h3>${curso.titulo} ${badgeEstado}</h3>
           <p>${curso.descripcion}</p>

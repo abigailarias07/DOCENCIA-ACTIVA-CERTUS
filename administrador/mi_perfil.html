@@ -21,7 +21,12 @@
 
     <section class="perfil-admin">
       <div class="info-personal">
-       <div class="detalles-admin">
+        <div class="contenedor-foto-perfil" style="position: relative; cursor: pointer;" title="Haz clic para cambiar tu foto">
+          <img id="admin-foto" src="../img/icono-docente.png" alt="Foto del administrador" width="90" height="90" style="border-radius: 50%; object-fit: cover;">
+          <input type="file" id="input-foto-admin" accept="image/*" hidden>
+        </div>
+
+        <div class="detalles-admin">
           <h1 id="admin-nombre">Cargando administrador...</h1>
           <p class="correo-admin" id="admin-correo">correo@certus.edu.pe</p>
           <p class="dni-admin" id="admin-dni">DNI: --------</p>
@@ -30,6 +35,7 @@
       </div>
 
       <div class="acciones-perfil">
+        <button type="button" id="btn-cambiar-foto" class="btn-secundario">Cambiar foto</button>
         <button type="button" id="btn-editar-clave" class="btn-secundario">Cambiar contraseña</button>
         <button type="button" id="btn-cerrar-sesion" class="btn-secundario" style="background-color: #d9534f; color: white;">Cerrar sesión</button>
       </div>
@@ -96,6 +102,6 @@
     <p>&copy; 2026 EDUCACIÓN ACTIVA CERTUS. Todos los derechos reservados.</p>
   </footer>
 
-  <script type="module" src="..JS/perfil.admin.js"></script>
+<script type="module" src="../JS/perfil.admin.js"></script>
 </body>
 </html>

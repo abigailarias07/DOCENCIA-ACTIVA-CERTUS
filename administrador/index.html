@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOCENCIA ACTIVA CERTUS</title>
+    <link rel="stylesheet" href="../CSS/estilos.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <img src="../img/certus-logo001.png" alt="Logo Certus" width="100">
+            <a href="capacitaciones.html">Subir Capacitaciones</a>
+            <a href="administrar_docentes.html">Monitorear Docentes</a>
+            <a href="mi_perfil.html">Mi Perfil</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>PANEL DEL ADMINISTRADOR</h1>
+        <p>Bienvenido a la administración de DOCENCIA ACTIVA CERTUS</p>
+    </main>
+    
+
+    
+    <footer>
+        <p>&copy; 2026 EDUCACION ACTIVA CERTUS. Todos los derechos reservados.</p>
+    </footer>
+
+<script>
+    const sesion = localStorage.getItem("usuario_certus") || sessionStorage.getItem("usuario_certus");
+    if (!sesion) {
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
