@@ -1,56 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CERTUS - Mis capacitaciones</title>
-</head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Mis capacitaciones | CERTUS</title>
+      <link rel="stylesheet" href="css/estilos_docente.css">
+      <script src="js/docente.js" defer></script>
+    </head>
 <body>
-  <header>
-    <a href="#"><img src="recursos/logos/logo_certus_blanco.png" alt="CERTUS" height="40"></a>
-    <nav>
-      <a href="#">Inicio</a>
-      <a href="#">Mis capacitaciones</a>
-    </nav>
-    <button type="button"><img src="recursos/iconos/notificaciones.png" alt="Notificaciones" height="24"></button>
-    <a href="#"><img src="recursos/iconos/usuario.png" alt="Perfil de usuario" height="28"></a>
-  </header>
-  <main>
-    <img src="recursos/iconos/sombrero_graduacion.png" alt="Capacitaciones" height="32">
-    <h1>Mis capacitaciones asignadas</h1>
-    <p>Continúa aprendiendo y potencia tu desarrollo profesional con CERTUS.</p>
-    <ul>
-      <li>
-        <article>
-          <!-- imagen del curso: Excel Básico para Docentes -->
-          <h2>Excel Básico para Docentes</h2>
-          <progress value="40" max="100">40%</progress> <span>40%</span>
-          <p>En proceso</p>
-          <a href="#">Ver clases &gt;</a>
-        </article>
-      </li>
-      <li>
-        <article>
-          <!-- imagen del curso: Metodologías Activas de Aprendizaje -->
-          <h2>Metodologías Activas de Aprendizaje</h2>
-          <progress value="100" max="100">100%</progress> <span>100%</span>
-          <p>Completado</p>
-          <a href="#">+ Descargar constancia</a>
-        </article>
-      </li>
-      <li>
-        <article>
-          <!-- imagen del curso: PowerPoint Profesional para Docentes -->
-          <h2>PowerPoint Profesional para Docentes</h2>
-          <progress value="40" max="100">40%</progress> <span>40%</span>
-          <p>En proceso</p>
-          <a href="#">Ver clases &gt;</a>
-        </article>
-      </li>
-    </ul>
-  </main>
-  <footer align="center">
-    <p>2026 CERTUS · EDUCACIÓN SUPERIOR</p>
-  </footer>
+<header class="encabezado">
+  <a class="marca" href="mis_capacitaciones.html"><img src="../img/certus-logo001.png" alt="CERTUS" width="144" height="39"></a>
+  <nav class="navegacion" aria-label="Navegación del docente">
+    <a href="mis_capacitaciones.html">Mis capacitaciones</a>
+    <a href="mis_constancias.html">Constancias</a>
+  </nav>
+  <div class="acciones">
+    <a class="accion-icono" href="notificaciones.html" aria-label="Notificaciones">&#128276;<span id="contador-avisos" class="contador">2</span></a>
+    <a class="accion-icono" href="perfil.html" aria-label="Mi perfil">&#128100;</a>
+  </div>
+</header>
+<main>
+    <div class="contenedor"><div class="titulo-pagina"><span class="simbolo" aria-hidden="true">&#127891;</span><div><h1>Mis capacitaciones</h1>
+      <p class="descripcion">Continúa aprendiendo y fortalece tus habilidades como docente.</p></div></div>
+  <div class="cursos">
+    <article class="tarjeta-curso">
+      <div class="imagen-curso excel" role="img" aria-label="Imagen ilustrativa de Excel Básico para Docentes">X</div>
+      <h2>Excel Básico para Docentes</h2>
+      <div class="avance"><div class="barra " role="progressbar" aria-label="Progreso" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span style="width:40%"></span></div><strong>40%</strong></div>
+      <span class="estado ">En proceso</span>
+      <a class="boton" href="detalle_curso.html?curso=excel">Ver clases</a>
+    </article>
+    <article class="tarjeta-curso">
+      <div class="imagen-curso metodos" role="img" aria-label="Imagen ilustrativa de Metodologías Activas de Aprendizaje">▶</div>
+      <h2>Metodologías Activas de Aprendizaje</h2>
+      <div class="avance"><div class="barra completa" role="progressbar" aria-label="Progreso" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><span style="width:100%"></span></div><strong>100%</strong></div>
+      <span class="estado completo">Completado</span>
+      <a class="boton" href="curso_completado.html">Ver constancia</a>
+    </article>
+    <article class="tarjeta-curso">
+      <div class="imagen-curso powerpoint" role="img" aria-label="Imagen ilustrativa de PowerPoint Profesional para Docentes">P</div>
+      <h2>PowerPoint Profesional para Docentes</h2>
+      <div class="avance"><div class="barra " role="progressbar" aria-label="Progreso" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span style="width:40%"></span></div><strong>40%</strong></div>
+      <span class="estado ">En proceso</span>
+      <a class="boton" href="detalle_curso.html?curso=powerpoint">Ver clases</a>
+    </article>
+  </div>
+</div>
+</main>
+<footer class="pie">2026 CERTUS - EDUCACIÓN SUPERIOR</footer>
 </body>
 </html>

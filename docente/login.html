@@ -1,37 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CERTUS - Login</title>
-  <link rel="stylesheet" href="estiloLogin.css">
-</head>
-<body background="recursos/fondos/fondo_edificio.png">
-  <header>
-    <a href="#"><img src="recursos/logos/certus-logo001.png" alt="CERTUS" height="40"></a>
-  </header>
-  <main align="center">
-    <h1>INICIAR SESIÓN</h1>
-    <form action="#" method="post">
-      <label for="correo">Correo institucional:</label><br>
-      <img src="recursos/iconos/correo.png" alt="Correo" height="20">
-      <input type="email" id="correo" name="correo" placeholder="Ingrese su correo institucional">
-      <br>
-      <label for="clave">Contraseña:</label><br>
-      <img src="recursos/iconos/candado.png" alt="Contraseña" height="20">
-      <input type="password" id="clave" name="clave" placeholder="Ingrese su contraseña">
-      <button type="button"><img src="recursos/iconos/ocultar_contrasena.png" alt="Mostrar u ocultar contraseña" height="20"></button>
-      <br>
-      <input type="checkbox" id="recordar" name="recordar">
-      <label for="recordar">Recordar inicio de sesión</label>
-      <br>
-      <input type="image" src="recursos/botones/iniciar_sesion.png" alt="INGRESAR" height="36">
-      <br>
-      <a href="#">¿Olvidé mi contraseña?</a>
-    </form>
-  </main>
-  <footer align="center">
-    <p>2026 CERTUS · EDUCACIÓN SUPERIOR</p>
-  </footer>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Iniciar sesión | CERTUS</title>
+      <link rel="stylesheet" href="css/estilos_docente.css">
+      <script src="js/docente.js" defer></script>
+    </head>
+<body>
+<header class="encabezado autenticacion"><a class="marca" href="../index.html"><img src="../img/certus-logo001.png" alt="CERTUS" width="144" height="39"></a></header>
+<main>
+    <section class="caja-acceso">
+  <h1>Iniciar sesión</h1>
+  <p class="descripcion">Accede a tus capacitaciones.</p>
+  <form id="form-login">
+    <div class="campo"><label for="correo">Correo institucional</label>
+      <input type="email" id="correo" name="correo" autocomplete="username" placeholder="usuario@certus.edu.pe" required></div>
+    <div class="campo"><label for="clave">Contraseña</label>
+      <div class="entrada-clave"><input type="password" id="clave" name="clave" autocomplete="current-password" placeholder="Ingresa tu contraseña" required>
+        <button type="button" class="mostrar-clave" data-mostrar-clave="clave" aria-label="Mostrar contraseña">Mostrar</button></div></div>
+    <label class="fila-formulario"><input type="checkbox" id="recordar"> Recordar mi correo</label>
+    <p class="mensaje" id="mensaje-login" role="alert" aria-live="polite"></p>
+    <button type="submit" class="boton bloque">Ingresar</button>
+    <a class="enlace-inferior" href="recuperar_contrasena.html">¿Olvidaste tu contraseña?</a>
+  </form>
+</section>
+</main>
+<footer class="pie">2026 CERTUS - EDUCACIÓN SUPERIOR</footer>
 </body>
 </html>

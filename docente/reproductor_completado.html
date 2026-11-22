@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CERTUS - Reproductor completado</title>
-</head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Clase completada | CERTUS</title>
+      <link rel="stylesheet" href="css/estilos_docente.css">
+      <script src="js/docente.js" defer></script>
+    </head>
 <body>
-  <header>
-    <a href="#"><img src="recursos/logos/logo_certus_blanco.png" alt="CERTUS" height="40"></a>
-    <nav>
-      <a href="#">Inicio</a>
-      <a href="#">Mis capacitaciones</a>
+<header class="encabezado">
+  <a class="marca" href="mis_capacitaciones.html"><img src="../img/certus-logo001.png" alt="CERTUS" width="144" height="39"></a>
+  <nav class="navegacion" aria-label="Navegación del docente">
+    <a href="mis_capacitaciones.html">Mis capacitaciones</a>
+    <a href="mis_constancias.html">Constancias</a>
+  </nav>
+  <div class="acciones">
+    <a class="accion-icono" href="notificaciones.html" aria-label="Notificaciones">&#128276;<span id="contador-avisos" class="contador">2</span></a>
+    <a class="accion-icono" href="perfil.html" aria-label="Mi perfil">&#128100;</a>
+  </div>
+</header>
+<main>
+    <div class="contenedor" id="contenido-clase">
+  <a class="volver" id="volver-detalle" href="detalle_curso.html?curso=metodos">← Volver al curso</a>
+  <section class="contenido-clase">
+    <h1 id="titulo-clase">Fundamentos de Excel</h1>
+    <p class="descripcion" id="curso-clase">Excel Básico para Docentes</p>
+    <nav class="navegar-clases" aria-label="Cambiar de clase">
+      <a class="boton suave" id="clase-anterior" href="detalle_curso.html" hidden>← Anterior</a>
+      <a class="boton suave" id="clase-siguiente" href="detalle_curso.html" hidden>Siguiente →</a>
     </nav>
-    <button type="button"><img src="recursos/iconos/notificaciones.png" alt="Notificaciones" height="24"></button>
-    <a href="#"><img src="recursos/iconos/usuario.png" alt="Perfil de usuario" height="28"></a>
-  </header>
-  <main>
-    <a href="#"><img src="recursos/iconos/flecha_izquierda.png" alt="" height="16"> Volver</a>
-    <p>Completado</p>
-    <video controls poster="" src=""></video>
-    <p>Tu progreso:</p>
-    <progress value="100" max="100">100%</progress> <span>100%</span>
-    <a href="#">+ Descargar constancia</a>
-  </main>
-  <footer align="center">
-    <p>2026 CERTUS · EDUCACIÓN SUPERIOR</p>
-  </footer>
+    <div class="pantalla-video" aria-label="Espacio de video de la clase">
+      <span class="icono-video" aria-hidden="true">▶</span>
+      <p>El video de esta clase aún no se ha agregado al proyecto.</p>
+    </div>
+    <div class="panel">
+      <h2>Progreso del curso</h2>
+      <div class="avance"><div class="barra" role="progressbar" aria-label="Progreso" aria-valuemin="0" aria-valuemax="100"><span id="progreso-clase" style="width:40%"></span></div><strong id="porcentaje-clase">40%</strong></div>
+      <a id="ir-constancia" class="boton" href="curso_completado.html" hidden>Ver constancia</a>
+    </div>
+  </section>
+</div>
+</main>
+<footer class="pie">2026 CERTUS - EDUCACIÓN SUPERIOR</footer>
 </body>
 </html>

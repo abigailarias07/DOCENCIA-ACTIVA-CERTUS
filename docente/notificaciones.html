@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Notificaciones | CERTUS</title>
+      <link rel="stylesheet" href="css/estilos_docente.css">
+      <script src="js/docente.js" defer></script>
+    </head>
+<body>
+<header class="encabezado">
+  <a class="marca" href="mis_capacitaciones.html"><img src="../img/certus-logo001.png" alt="CERTUS" width="144" height="39"></a>
+  <nav class="navegacion" aria-label="Navegación del docente">
+    <a href="mis_capacitaciones.html">Mis capacitaciones</a>
+    <a href="mis_constancias.html">Constancias</a>
+  </nav>
+  <div class="acciones">
+    <a class="accion-icono" href="notificaciones.html" aria-label="Notificaciones">&#128276;<span id="contador-avisos" class="contador">2</span></a>
+    <a class="accion-icono" href="perfil.html" aria-label="Mi perfil">&#128100;</a>
+  </div>
+</header>
+<main>
+    <div class="contenedor">
+  <a class="volver" href="mis_capacitaciones.html">← Volver a mis capacitaciones</a>
+  <h1>Notificaciones</h1>
+  <p class="descripcion">Consulta las novedades de tus cursos.</p>
+  <ul class="avisos">
+    <li data-aviso="curso" class="no-leido">
+      <div><h2>Nueva capacitación disponible</h2><p>Ya puedes revisar las clases de PowerPoint Profesional para Docentes.</p>
+      <a href="detalle_curso.html?curso=powerpoint">Ir al curso</a></div>
+      <button class="boton suave" type="button">Marcar como leída</button>
+    </li>
+    <li data-aviso="constancia" class="no-leido">
+      <div><h2>Curso completado</h2><p>Tu capacitación de Metodologías Activas de Aprendizaje está completada.</p>
+      <a href="mis_constancias.html">Ver constancias</a></div>
+      <button class="boton suave" type="button">Marcar como leída</button>
+    </li>
+  </ul>
+</div>
+</main>
+<footer class="pie">2026 CERTUS - EDUCACIÓN SUPERIOR</footer>
+</body>
+</html>

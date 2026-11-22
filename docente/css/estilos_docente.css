@@ -1,0 +1,179 @@
+
+/* 1. COLORES Y ESTILOS GENERALES */
+:root {
+    --azul: #00205b;
+    --azul-claro: #0b66c3;
+    --fondo: #f3f6fb;
+    --borde: #dbe3f0;
+    --texto: #202c40;
+    --verde: #167d48;
+    --error: #b42318;
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; }
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; font: 16px/1.5 "Segoe UI", Arial, sans-serif; color: var(--texto); background: var(--fondo); }
+main { flex: 1; width: 100%; }
+a { color: var(--azul-claro); }
+button, input { font: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid #efb52e; outline-offset: 3px; }
+h1, h2 { color: var(--azul); }
+h1 { font-size: clamp(24px, 3vw, 32px); line-height: 1.2; margin: 0 0 10px; }
+h2 { font-size: 20px; margin: 0 0 8px; }
+p { margin-top: 0; }
+.descripcion { color: #465670; margin-bottom: 25px; }
+.contenedor { width: min(1100px, calc(100% - 40px)); margin: 30px auto 45px; }
+.volver { display: inline-block; margin-bottom: 20px; text-decoration: none; font-weight: 700; }
+.volver:hover { text-decoration: underline; }
+
+/* 2. ENCABEZADO Y PIE DE PÁGINA */
+.encabezado, .pie { background: var(--azul); color: white; }
+.encabezado { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 10px clamp(16px, 4vw, 52px); }
+.encabezado.autenticacion { justify-content: center; padding: 22px 16px; }
+
+/* LOGO DE CERTUS */
+.marca { display: inline-flex; align-items: center; padding: 8px 12px; background: white; border-radius: 10px; }
+.marca img { display: block; width: 145px; height: auto; }
+
+/* NAVEGACIÓN */
+.navegacion, .acciones { display: flex; align-items: center; }
+.navegacion { gap: 20px; }
+.navegacion a { color: white; text-decoration: none; font-weight: 600; }
+.navegacion a:hover, .navegacion a[aria-current="page"] { text-decoration: underline; }
+.acciones { gap: 13px; }
+.accion-icono { position: relative; display: inline-grid; place-items: center; width: 42px; height: 42px; border: 1px solid #8eb2e3; border-radius: 50%; color: white; text-decoration: none; font-size: 20px; }
+.contador { position: absolute; top: -5px; right: -5px; display: grid; place-items: center; min-width: 19px; height: 19px; padding: 0 3px; border-radius: 50%; background: #e84646; color: white; font-size: 11px; font-weight: 700; }
+.pie { padding: 18px; text-align: center; font-size: 13px; }
+
+/* 3. LOGIN Y RECUPERACIÓN DE CONTRASEÑA */
+.caja-acceso { width: min(450px, calc(100% - 32px)); margin: 48px auto 52px; padding: 32px; background: #e7eefb; border: 1px solid #9db9e3; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,32,91,.08); }
+.caja-acceso h1 { text-align: center; text-transform: uppercase; font-size: 23px; }
+.caja-acceso .descripcion { text-align: center; margin: 0 0 22px; }
+.campo { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.campo label { font-weight: 600; font-size: 14px; }
+.campo input, .codigo input { width: 100%; padding: 11px 12px; background: white; border: 1px solid #7892ba; border-radius: 8px; color: var(--texto); }
+.campo input:focus { border-color: var(--azul-claro); }
+.entrada-clave { display: flex; position: relative; }
+.entrada-clave input { padding-right: 86px; }
+.mostrar-clave { position: absolute; right: 4px; top: 4px; bottom: 4px; padding: 0 9px; border: 0; background: none; color: var(--azul); font-size: 13px; font-weight: 700; }
+.fila-formulario { display: flex; align-items: center; gap: 8px; margin: 6px 0 18px; font-size: 13px; }
+.mensaje { min-height: 20px; color: var(--error); font-size: 13px; font-weight: 600; }
+.mensaje:empty { min-height: 0; }
+.separado { margin-top: 12px; }
+.nota { color: #44546b; font-size: 12px; }
+.centrado { text-align: center; }
+.enlace-inferior { display: block; margin-top: 16px; text-align: center; font-size: 14px; font-weight: 600; }
+
+/* BOTONES */
+.boton { display: inline-flex; align-items: center; justify-content: center; padding: 11px 18px; border: 0; border-radius: 9px; background: var(--azul-claro); color: white; text-align: center; text-decoration: none; font-weight: 700; }
+.boton:hover { background: #004b9b; }
+.boton.secundario { background: var(--azul); }
+.boton.suave { background: #e4ebfa; color: var(--azul); border: 1px solid #b6c7e6; }
+.boton.suave:hover { background: #d5e2f7; }
+.boton.bloque { display: flex; width: 100%; }
+.boton:disabled { background: #9daec8; cursor: not-allowed; }
+.codigo { display: flex; justify-content: center; gap: 7px; margin: 14px 0 20px; }
+.codigo input { width: min(45px, 15%); padding: 10px 0; text-align: center; font-size: 21px; }
+
+/* 4. LISTA DE CAPACITACIONES */
+.titulo-pagina { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
+.simbolo { display: grid; place-items: center; flex-shrink: 0; width: 62px; height: 62px; border-radius: 14px; background: #d8e8ff; color: var(--azul); font-size: 34px; }
+.titulo-pagina .descripcion { margin: 0; }
+.cursos { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; }
+.tarjeta-curso, .panel { background: white; border: 1px solid var(--borde); border-radius: 14px; }
+.tarjeta-curso { display: flex; flex-direction: column; padding: 15px; box-shadow: 0 4px 12px #00205b0c; }
+.imagen-curso { display: grid; place-items: center; overflow: hidden; height: 138px; margin-bottom: 15px; border-radius: 10px; color: white; font-size: 64px; font-weight: 800; }
+.imagen-curso.excel { background: linear-gradient(140deg, #33af78, #087347); }
+.imagen-curso.metodos { background: linear-gradient(140deg, #58a9f5, #1351a5); }
+.imagen-curso.powerpoint { background: linear-gradient(140deg, #f9ab72, #c4501b); }
+.tarjeta-curso h2 { font-size: 17px; min-height: 50px; }
+
+/* PROGRESO DE CURSOS */
+.avance { display: flex; align-items: center; gap: 10px; margin: 9px 0 12px; }
+.barra { flex: 1; height: 11px; overflow: hidden; background: #d9e3f1; border-radius: 10px; }
+.barra span { display: block; height: 100%; border-radius: inherit; background: var(--azul); }
+.barra.completa span { background: var(--verde); }
+.avance strong { white-space: nowrap; font-size: 14px; }
+.estado { display: inline-flex; width: fit-content; padding: 3px 12px; margin-bottom: 16px; border-radius: 20px; background: #e1e8f4; color: var(--azul); font-size: 13px; font-weight: 700; }
+.estado.completo { background: #dff4e8; color: var(--verde); }
+.tarjeta-curso .boton { margin-top: auto; }
+.panel { padding: 24px; }
+.panel + .panel { margin-top: 18px; }
+.vacio { max-width: 680px; margin: 40px auto; text-align: center; }
+.vacio .simbolo { width: 100px; height: 100px; margin: 0 auto 16px; font-size: 55px; }
+
+/* 5. DETALLE DE CURSO Y CLASES */
+.detalle { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 26px; align-items: start; }
+.curso-encabezado { display: flex; align-items: center; gap: 15px; margin-bottom: 14px; }
+.curso-encabezado .imagen-curso { flex: 0 0 74px; height: 74px; margin: 0; font-size: 33px; }
+.lecciones { margin: 15px 0 0; padding: 0; list-style: none; }
+.lecciones li + li { border-top: 1px solid var(--borde); }
+.lecciones a { display: flex; align-items: center; gap: 12px; padding: 14px 5px; text-decoration: none; font-weight: 600; }
+.lecciones a:hover { color: var(--azul); text-decoration: underline; }
+.lecciones a::before { content: "▶"; display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #e8f0fc; color: var(--azul); font-size: 12px; }
+.detalle .imagen-curso.grande { height: 190px; margin-bottom: 14px; font-size: 86px; }
+
+/* REPRODUCTOR DE CLASES */
+.contenido-clase { width: min(780px,100%); margin: 0 auto; }
+.navegar-clases { display: flex; justify-content: space-between; gap: 14px; margin: 20px 0; }
+.pantalla-video { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; aspect-ratio: 16/9; margin: 15px 0; padding: 24px; border-radius: 14px; background: #121923; color: white; text-align: center; }
+.pantalla-video .icono-video { opacity: .65; font-size: 40px; }
+.pantalla-video p { max-width: 400px; margin: 0; color: #e2e7ed; }
+.pantalla-video video { width: 100%; height: 100%; border-radius: 10px; }
+
+/* 6. PERFIL, NOTIFICACIONES Y CONSTANCIAS */
+.datos-perfil { display: grid; grid-template-columns: 140px 1fr; gap: 12px; margin: 0; }
+.datos-perfil dt { color: var(--azul); font-weight: 700; }
+.datos-perfil dd { margin: 0; overflow-wrap: anywhere; }
+.enlaces-perfil { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
+
+/* NOTIFICACIONES */
+.avisos { margin: 0; padding: 0; list-style: none; }
+.avisos li { display: flex; align-items: start; justify-content: space-between; gap: 18px; margin-bottom: 12px; padding: 16px; border: 1px solid var(--borde); border-radius: 10px; background: white; }
+.avisos li.no-leido { border-left: 4px solid var(--azul-claro); }
+.avisos h2 { font-size: 16px; margin-bottom: 3px; }
+.avisos p { margin-bottom: 0; color: #465670; }
+.avisos button { flex-shrink: 0; }
+
+/* CONSTANCIAS */
+.tabla-wrap { overflow-x: auto; }
+.tabla { width: 100%; border-collapse: collapse; background: white; }
+.tabla th, .tabla td { padding: 13px; text-align: left; border-bottom: 1px solid var(--borde); }
+.tabla th { background: var(--azul); color: white; }
+.constancia { max-width: 540px; margin: 22px auto; padding: 32px 22px; border: 8px double var(--azul); background: white; text-align: center; }
+.constancia h2 { font-size: 25px; }
+.constancia .nombre { margin: 20px 0; font-size: 22px; font-weight: 700; }
+.constancia .curso { color: var(--azul); font-size: 19px; font-weight: 700; }
+.constancia .aviso-constancia { margin-top: 25px; color: #707a86; font-size: 12px; }
+
+/* 7. DISEÑO PARA CELULARES Y TABLETAS */
+@media (max-width: 800px) {
+    .cursos { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .detalle { grid-template-columns: 1fr; }
+}
+@media (max-width: 580px) {
+    .encabezado { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .navegacion { order: 3; width: 100%; justify-content: center; gap: 16px; font-size: 13px; }
+    .acciones { margin-left: auto; }
+    .encabezado.autenticacion { justify-content: center; }
+    .contenedor { width: calc(100% - 28px); margin: 24px auto 35px; }
+    .cursos { grid-template-columns: 1fr; gap: 16px; }
+    .caja-acceso { margin: 26px auto; padding: 23px 19px; }
+    .titulo-pagina { align-items: start; }
+    .simbolo { width: 48px; height: 48px; font-size: 28px; }
+    .panel { padding: 18px; }
+    .datos-perfil { grid-template-columns: 1fr; gap: 2px; }
+    .datos-perfil dd { margin-bottom: 13px; }
+    .avisos li { flex-direction: column; }
+    .navegar-clases { flex-wrap: wrap; }
+    .navegar-clases .boton { flex: 1; }
+}
+
+/* 8. IMPRESIÓN DE CONSTANCIAS */
+@media print {
+    .encabezado, .pie, .volver, .no-imprimir, .contenedor > h1, .contenedor > .descripcion { display: none !important; }
+    body { background: white; }
+    .contenedor { width: 100%; margin: 0; }
+    .constancia { margin: 0 auto; page-break-inside: avoid; }
+}

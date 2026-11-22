@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CERTUS - Sin capacitaciones</title>
-</head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Sin capacitaciones | CERTUS</title>
+      <link rel="stylesheet" href="css/estilos_docente.css">
+      <script src="js/docente.js" defer></script>
+    </head>
 <body>
-  <header>
-    <a href="#"><img src="recursos/logos/logo_certus_blanco.png" alt="CERTUS" height="40"></a>
-    <nav>
-      <a href="#">Inicio</a>
-      <a href="#">Mis capacitaciones</a>
-    </nav>
-    <button type="button"><img src="recursos/iconos/notificaciones.png" alt="Notificaciones" height="24"></button>
-    <a href="#"><img src="recursos/iconos/usuario.png" alt="Perfil de usuario" height="28"></a>
-  </header>
-  <main align="center">
-    <img src="recursos/iconos/sombrero_graduacion.png" alt="Capacitaciones" height="32">
-    <h1>Mis capacitaciones asignadas</h1>
-    <p>Continúa aprendiendo y potencia tu desarrollo profesional con CERTUS.</p>
-    <!-- imagen: bandeja vacía -->
+<header class="encabezado">
+  <a class="marca" href="mis_capacitaciones.html"><img src="../img/certus-logo001.png" alt="CERTUS" width="144" height="39"></a>
+  <nav class="navegacion" aria-label="Navegación del docente">
+    <a href="mis_capacitaciones.html">Mis capacitaciones</a>
+    <a href="mis_constancias.html">Constancias</a>
+  </nav>
+  <div class="acciones">
+    <a class="accion-icono" href="notificaciones.html" aria-label="Notificaciones">&#128276;<span id="contador-avisos" class="contador">2</span></a>
+    <a class="accion-icono" href="perfil.html" aria-label="Mi perfil">&#128100;</a>
+  </div>
+</header>
+<main>
+    <div class="contenedor"><div class="titulo-pagina"><span class="simbolo" aria-hidden="true">&#127891;</span><div><h1>Mis capacitaciones</h1>
+      <p class="descripcion">Continúa aprendiendo y fortalece tus habilidades como docente.</p></div></div>
+  <section class="panel vacio"><span class="simbolo" aria-hidden="true">&#128218;</span>
     <h2>No tienes capacitaciones asignadas</h2>
-  </main>
-  <footer align="center">
-    <p>2026 CERTUS · EDUCACIÓN SUPERIOR</p>
-  </footer>
+    <p>Cuando se asigne una capacitación, podrás verla aquí.</p>
+  </section>
+</div>
+</main>
+<footer class="pie">2026 CERTUS - EDUCACIÓN SUPERIOR</footer>
 </body>
 </html>

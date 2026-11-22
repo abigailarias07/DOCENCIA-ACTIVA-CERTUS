@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Detalle del curso | CERTUS</title>
+      <link rel="stylesheet" href="css/estilos_docente.css">
+      <script src="js/docente.js" defer></script>
+    </head>
+<body>
+<header class="encabezado">
+  <a class="marca" href="mis_capacitaciones.html"><img src="../img/certus-logo001.png" alt="CERTUS" width="144" height="39"></a>
+  <nav class="navegacion" aria-label="Navegación del docente">
+    <a href="mis_capacitaciones.html">Mis capacitaciones</a>
+    <a href="mis_constancias.html">Constancias</a>
+  </nav>
+  <div class="acciones">
+    <a class="accion-icono" href="notificaciones.html" aria-label="Notificaciones">&#128276;<span id="contador-avisos" class="contador">2</span></a>
+    <a class="accion-icono" href="perfil.html" aria-label="Mi perfil">&#128100;</a>
+  </div>
+</header>
+<main>
+    <div class="contenedor" id="detalle-curso">
+  <a class="volver" href="mis_capacitaciones.html">← Volver a mis capacitaciones</a>
+  <div class="detalle">
+    <section class="panel">
+      <div class="curso-encabezado"><div id="portada-curso" class="imagen-curso excel">X</div><h1 id="titulo-curso">Excel Básico para Docentes</h1></div>
+      <div class="avance"><div class="barra" role="progressbar" aria-label="Avance del curso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40"><span id="barra-curso" style="width:40%"></span></div><strong id="porcentaje-curso">40%</strong></div>
+      <h2>Clases del curso</h2>
+      <ol class="lecciones" id="lista-lecciones"></ol>
+    </section>
+    <aside class="panel">
+      <div id="portada-clase" class="imagen-curso grande excel">X</div>
+      <h2 id="nombre-clase">Fundamentos de Excel</h2>
+      <p id="descripcion-clase">Conoce las herramientas esenciales del curso.</p>
+      <a id="ver-clase" class="boton bloque" href="reproductor_pendiente.html?curso=excel&amp;clase=0">Ver clase</a>
+    </aside>
+  </div>
+</div>
+</main>
+<footer class="pie">2026 CERTUS - EDUCACIÓN SUPERIOR</footer>
+</body>
+</html>

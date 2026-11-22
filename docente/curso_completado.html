@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CERTUS - Curso completado</title>
-</head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Curso completado | CERTUS</title>
+      <link rel="stylesheet" href="css/estilos_docente.css">
+      <script src="js/docente.js" defer></script>
+    </head>
 <body>
-  <header>
-    <a href="#"><img src="recursos/logos/logo_certus_blanco.png" alt="CERTUS" height="40"></a>
-    <nav>
-      <a href="#">Inicio</a>
-      <a href="#">Mis capacitaciones</a>
-    </nav>
-    <button type="button"><img src="recursos/iconos/notificaciones.png" alt="Notificaciones" height="24"></button>
-    <a href="#"><img src="recursos/iconos/usuario.png" alt="Perfil de usuario" height="28"></a>
-  </header>
-  <main align="center">
-    <a href="#"><img src="recursos/iconos/flecha_izquierda.png" alt="" height="16"> Volver</a>
-    <img src="recursos/iconos/sombrero_graduacion.png" alt="Capacitaciones" height="32">
-    <img src="recursos/iconos/check_exito.png" alt="Éxito" height="56">
-    <h1>¡Curso completado!</h1>
-    <p>Tu avance es del 100%</p>
-    <progress value="100" max="100">100%</progress> <span>100%</span>
-    <!-- imagen: vista previa de la constancia -->
-    <a href="#">DESCARGAR CONSTANCIA (PDF)</a>
-  </main>
-  <footer align="center">
-    <p>2026 CERTUS · EDUCACIÓN SUPERIOR</p>
-  </footer>
+<header class="encabezado">
+  <a class="marca" href="mis_capacitaciones.html"><img src="../img/certus-logo001.png" alt="CERTUS" width="144" height="39"></a>
+  <nav class="navegacion" aria-label="Navegación del docente">
+    <a href="mis_capacitaciones.html">Mis capacitaciones</a>
+    <a href="mis_constancias.html">Constancias</a>
+  </nav>
+  <div class="acciones">
+    <a class="accion-icono" href="notificaciones.html" aria-label="Notificaciones">&#128276;<span id="contador-avisos" class="contador">2</span></a>
+    <a class="accion-icono" href="perfil.html" aria-label="Mi perfil">&#128100;</a>
+  </div>
+</header>
+<main>
+    <div class="contenedor">
+  <a class="volver" href="mis_capacitaciones.html">← Volver a mis capacitaciones</a>
+  <h1 class="centrado">¡Curso completado!</h1>
+  <p class="descripcion centrado">Metodologías Activas de Aprendizaje · Progreso: 100%</p>
+  <div class="constancia" id="constancia">
+    <img src="recursos/logos/logo_certus_azul.png" alt="CERTUS" width="170">
+    <h2>Constancia de capacitación</h2>
+    <p>Se presenta el siguiente ejemplo de constancia para:</p>
+    <p class="nombre">Ana Torres Mendoza</p>
+    <p>Por haber completado el curso:</p>
+    <p class="curso">Metodologías Activas de Aprendizaje</p>
+    <p class="aviso-constancia">Ejemplo de interfaz. No es una constancia oficial.</p>
+  </div>
+  <div class="centrado no-imprimir">
+    <button class="boton" type="button" id="imprimir-constancia">Imprimir o guardar como PDF</button>
+    <p class="nota">El navegador abrirá sus opciones de impresión.</p>
+  </div>
+</div>
+</main>
+<footer class="pie">2026 CERTUS - EDUCACIÓN SUPERIOR</footer>
 </body>
 </html>
