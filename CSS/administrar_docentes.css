@@ -44,10 +44,6 @@ body {
     content: "SALIR";
 }
 
-#header-lista nav > a:nth-child(2) {
-    display: none;
-}
-
 #header-lista nav input[type="search"] {
     width: 205px;
     height: 27px;

@@ -1,7 +1,117 @@
-body {
+
+/* =============================================
+   DOCENCIA ACTIVA CERTUS
+   HOJA DE ESTILOS GENERAL
+============================================= */
+
+/* CONFIGURACIÓN GENERAL */
+
+* {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6fa;
+    color: #263445;
+    min-height: 100vh;
+}
+
+
+/* =============================================
+   PANEL PRINCIPAL DEL ADMINISTRADOR
+============================================= */
+
+/* HEADER */
+
+#header-admin {
+    width: 100%;
+    background: #002060;
+    border-bottom: 4px solid #1fa3ec;
+    padding: 0 5%;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+}
+
+#header-admin nav {
+    max-width: 1250px;
+    min-height: 75px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+#header-admin nav img {
+    width: 115px;
+    height: auto;
+    object-fit: contain;
+}
+
+#header-admin nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px 16px;
+    border-radius: 7px;
+    transition: all 0.3s ease;
+}
+
+#header-admin nav a:hover {
+    background: #1fa3ec;
+    color: #ffffff;
+}
+
+/* CONTENIDO PRINCIPAL */
+
+.panel-admin {
+    width: 90%;
+    max-width: 1150px;
+    margin: 50px auto;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 12px;
+    min-height: 350px;
+    box-shadow: 0 5px 20px rgba(0,40,85,0.07);
+}
+
+.panel-admin h1 {
+    color: #002060;
+    font-size: 30px;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    border-left: 6px solid #1fa3ec;
+}
+
+.panel-admin p {
+    color: #596579;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* FOOTER ADMINISTRADOR */
+
+#footer-admin {
+    width: 100%;
+    background: #002060;
+    color: #ffffff;
+    text-align: center;
+    padding: 22px 15px;
+    margin-top: 40px;
+}
+
+#footer-admin p {
+    font-size: 13px;
+    color: #ffffff;
+}
+
+
+/* =============================================
+   GESTIÓN Y LISTA DE DOCENTES
+============================================= */
 
 #header-lista {
     background: #002060;
@@ -17,10 +127,10 @@ body {
 }
 
 #header-lista .salir {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
-    margin-right: auto; 
+    margin-right: auto;
 }
 
 #header-lista input[type="search"] {
@@ -40,9 +150,12 @@ body {
     background: #d9d9d9;
 }
 
+/* CONTENIDO DE DOCENTES */
+
 main {
     padding: 0 20px;
 }
+
 #agregar-docente {
     margin-top: 24px;
     height: 55px;
@@ -78,7 +191,7 @@ main {
     padding: 8px;
     box-sizing: border-box;
     border-radius: 50%;
-    background: #fff;
+    background: #ffffff;
 }
 
 .docencia p {
@@ -89,14 +202,134 @@ main {
 
 .btn-ver-docente {
     background: #4bc0f0;
-    color: #fff;
+    color: #ffffff;
     border: none;
     border-radius: 8px;
     padding: 8px 32px;
     font-size: 1.1rem;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .btn-ver-docente:hover {
     background: #2aa9e0;
+}
+
+
+/* =============================================
+   RESPONSIVE - TABLETS
+============================================= */
+
+@media (max-width: 850px) {
+
+    #header-admin {
+        padding: 12px 3%;
+    }
+
+    #header-admin nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    #header-admin nav img {
+        width: 100px;
+    }
+
+    .panel-admin {
+        width: 94%;
+        padding: 25px;
+        margin: 30px auto;
+    }
+
+    #header-lista nav {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 12px 0;
+    }
+}
+
+
+/* =============================================
+   RESPONSIVE - CELULARES
+============================================= */
+
+@media (max-width: 600px) {
+
+    /* HEADER ADMIN */
+
+    #header-admin {
+        padding: 15px;
+    }
+
+    #header-admin nav {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #header-admin nav img {
+        width: 105px;
+        margin-bottom: 8px;
+    }
+
+    #header-admin nav a {
+        width: 100%;
+        text-align: center;
+        background: rgba(255,255,255,0.08);
+        padding: 12px;
+    }
+
+    /* PANEL ADMIN */
+
+    .panel-admin {
+        width: 92%;
+        margin: 25px auto;
+        padding: 22px 18px;
+        min-height: 300px;
+    }
+
+    .panel-admin h1 {
+        font-size: 23px;
+    }
+
+    .panel-admin p {
+        font-size: 14px;
+    }
+
+    /* FOOTER */
+
+    #footer-admin {
+        padding: 18px 10px;
+    }
+
+    #footer-admin p {
+        font-size: 11px;
+    }
+
+    /* LISTA DE DOCENTES */
+
+    #header-lista nav {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+        padding: 12px 0;
+    }
+
+    #header-lista input[type="search"] {
+        width: 100%;
+    }
+
+    .docencia {
+        flex-wrap: wrap;
+    }
+
+    .docencia p {
+        font-size: 0.95rem;
+    }
+
+    .btn-ver-docente {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
 }
