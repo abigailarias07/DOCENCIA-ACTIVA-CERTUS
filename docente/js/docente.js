@@ -5,17 +5,33 @@ const cursos = {
   excel: {
     nombre: "Excel Básico para Docentes", inicial: "X", tema: "excel", avance: 40,
     descripcion: "Conocerás el entorno de Excel y sus principales herramientas para organizar información.",
-    clases: ["Fundamentos de Excel", "Fórmulas y funciones", "Gráficos y visualización", "Tablas y organización de datos"]
+    clases: ["Fundamentos de Excel", "Fórmulas y funciones", "Gráficos y visualización", "Tablas y organización de datos"],
+    descripciones: [
+      "Conocerás el entorno de Excel, sus partes principales y las herramientas básicas para crear y administrar hojas de cálculo.",
+      "Aprenderás a utilizar fórmulas y funciones para realizar cálculos, procesar información y resolver tareas frecuentes de manera sencilla.",
+      "Descubrirás cómo crear gráficos y elegir la visualización adecuada para representar datos y comunicar resultados con claridad.",
+      "Aprenderás a organizar información en tablas, ordenar y filtrar datos para trabajar de forma más clara y eficiente."
+    ]
   },
   metodologias: {
     nombre: "Metodologías Activas de Aprendizaje", inicial: "▶", tema: "metodos", avance: 100,
     descripcion: "Revisa estrategias participativas para fortalecer la enseñanza y el aprendizaje.",
-    clases: ["Aprendizaje basado en proyectos", "Trabajo colaborativo", "Evaluación formativa"]
+    clases: ["Aprendizaje basado en proyectos", "Trabajo colaborativo", "Evaluación formativa"],
+    descripciones: [
+      "Conocerás cómo diseñar experiencias de aprendizaje a partir de retos y proyectos que conecten los contenidos con situaciones reales.",
+      "Revisarás estrategias para promover la participación, la comunicación y la construcción conjunta de conocimientos entre estudiantes.",
+      "Explorarás herramientas para recoger evidencias de aprendizaje, brindar retroalimentación y acompañar el progreso de tus estudiantes."
+    ]
   },
   powerpoint: {
     nombre: "PowerPoint Profesional para Docentes", inicial: "P", tema: "powerpoint", avance: 40,
     descripcion: "Aprende a diseñar presentaciones claras para acompañar tus clases.",
-    clases: ["Diseño de diapositivas", "Imágenes y diagramas", "Presentación final"]
+    clases: ["Diseño de diapositivas", "Imágenes y diagramas", "Presentación final"],
+    descripciones: [
+      "Aprenderás a crear diapositivas ordenadas, aplicar diseños y organizar el contenido para comunicar tus ideas de manera efectiva.",
+      "Conocerás cómo incorporar imágenes, formas y diagramas para explicar conceptos y complementar visualmente tus clases.",
+      "Integrarás lo aprendido para preparar una presentación completa, clara y adecuada para una sesión educativa."
+    ]
   }
 };
 
@@ -41,6 +57,35 @@ function actualizarAvance(barra, porcentaje, avance) {
   progreso.parentElement.setAttribute("aria-valuenow", String(avance));
   progreso.closest(".barra").classList.toggle("completa", avance === 100);
   $(porcentaje).textContent = `${avance}%`;
+}
+
+// 2.1. BÚSQUEDA DE CAPACITACIONES
+function buscarCapacitaciones() {
+  const formulario = $("#buscador-capacitaciones");
+  const campo = $("#buscar-curso");
+  const contenedor = $("#lista-capacitaciones");
+  const mensaje = $("#sin-resultados-cursos");
+  if (!formulario || !campo || !contenedor || !mensaje) return;
+
+  const filtrar = () => {
+    const consulta = campo.value.trim().toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    let visibles = 0;
+    contenedor.querySelectorAll(".tarjeta-curso").forEach((tarjeta) => {
+      const nombre = (tarjeta.querySelector("h2")?.textContent || "")
+        .toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const coincide = nombre.includes(consulta);
+      tarjeta.hidden = !coincide;
+      if (coincide) visibles++;
+    });
+    mensaje.hidden = visibles !== 0;
+  };
+
+  campo.addEventListener("input", filtrar);
+  formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    filtrar();
+    campo.focus();
+  });
 }
 
 // 3. INICIO DE SESIÓN Y CONTRASEÑAS
@@ -139,24 +184,52 @@ function verDetalle() {
   const solicitado = new URLSearchParams(location.search).get("curso");
   const codigo = Object.hasOwn(cursos, solicitado) ? solicitado : "excel";
   const curso = cursos[codigo];
+  const lista = $("#lista-lecciones");
+  const tituloClase = $("#nombre-clase");
+  const descripcionClase = $("#descripcion-clase");
+  const botonVerClase = $("#ver-clase");
+  const portadaClase = $("#portada-clase");
+  const archivoReproductor = curso.avance === 100
+    ? "reproductor_completado.html"
+    : "reproductor_pendiente.html";
+
   $("#titulo-curso").textContent = curso.nombre;
-  $("#nombre-clase").textContent = curso.clases[0];
-  $("#descripcion-clase").textContent = curso.descripcion;
   [["#portada-curso", "imagen-curso"], ["#portada-clase", "imagen-curso grande"]].forEach(([selector, estilo]) => {
     $(selector).textContent = curso.inicial;
     $(selector).className = `${estilo} ${curso.tema}`;
   });
   actualizarAvance("#barra-curso", "#porcentaje-curso", curso.avance);
-  $("#ver-clase").href = `${curso.avance === 100 ? "reproductor_completado" : "reproductor_pendiente"}.html?curso=${codigo}&clase=0`;
   document.title = `${curso.nombre} | CERTUS`;
 
+  const seleccionarClase = (numero) => {
+    tituloClase.textContent = curso.clases[numero];
+    descripcionClase.textContent = curso.descripciones?.[numero] || curso.descripcion;
+    portadaClase.textContent = curso.inicial;
+    botonVerClase.href = `${archivoReproductor}?curso=${codigo}&clase=${numero}`;
+
+    lista.querySelectorAll("a").forEach((enlace, indice) => {
+      const seleccionada = indice === numero;
+      enlace.classList.toggle("seleccionada", seleccionada);
+      if (seleccionada) enlace.setAttribute("aria-current", "true");
+      else enlace.removeAttribute("aria-current");
+    });
+  };
+
+  lista.replaceChildren();
   curso.clases.forEach((nombre, numero) => {
-    const elemento = document.createElement("li"), enlace = document.createElement("a");
-    enlace.href = `${curso.avance === 100 ? "reproductor_completado" : "reproductor_pendiente"}.html?curso=${codigo}&clase=${numero}`;
+    const elemento = document.createElement("li");
+    const enlace = document.createElement("a");
+    enlace.href = `#clase-${numero + 1}`;
     enlace.textContent = `${numero + 1}. ${nombre}`;
+    enlace.addEventListener("click", (evento) => {
+      evento.preventDefault();
+      seleccionarClase(numero);
+    });
     elemento.append(enlace);
-    $("#lista-lecciones").append(elemento);
+    lista.append(elemento);
   });
+
+  seleccionarClase(0);
 }
 
 function verClase() {
@@ -176,8 +249,14 @@ function verClase() {
   $("#volver-detalle").href = `detalle_curso.html?curso=${codigo}`;
   actualizarAvance("#progreso-clase", "#porcentaje-clase", curso.avance);
   [["#clase-anterior", numero - 1, numero === 0], ["#clase-siguiente", numero + 1, numero === curso.clases.length - 1]].forEach(([selector, indiceClase, oculto]) => {
-    $(selector).hidden = oculto;
-    $(selector).href = `${archivo}?curso=${codigo}&clase=${indiceClase}`;
+    const boton = $(selector);
+    // Reservar siempre el espacio del botón, incluso en los extremos.
+    boton.hidden = false;
+    boton.style.visibility = oculto ? "hidden" : "visible";
+    boton.style.pointerEvents = oculto ? "none" : "";
+    boton.setAttribute("aria-hidden", String(oculto));
+    boton.tabIndex = oculto ? -1 : 0;
+    boton.href = `${archivo}?curso=${codigo}&clase=${indiceClase}`;
   });
   if ($("#ir-constancia")) $("#ir-constancia").hidden = curso.avance !== 100;
   document.title = `${curso.clases[numero]} | CERTUS`;
@@ -227,6 +306,7 @@ function prepararNavegacion() {
 }
 
 prepararNavegacion();
+buscarCapacitaciones();
 mostrarContrasena();
 iniciarSesion();
 recuperarContrasena();

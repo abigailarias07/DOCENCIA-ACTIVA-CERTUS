@@ -22,7 +22,14 @@
 <main>
     <div class="contenedor"><div class="titulo-pagina"><span class="simbolo" aria-hidden="true">&#127891;</span><div><h1>Mis capacitaciones</h1>
       <p class="descripcion">Continúa aprendiendo y fortalece tus habilidades como docente.</p></div></div>
-  <div class="cursos">
+  <form class="buscador-cursos" id="buscador-capacitaciones" role="search">
+    <label for="buscar-curso">Buscar capacitación</label>
+    <div class="campo-busqueda">
+      <input type="search" id="buscar-curso" name="q" placeholder="Escribe el nombre de un curso..." autocomplete="off">
+    </div>
+  </form>
+  <p class="mensaje-sin-resultados" id="sin-resultados-cursos" role="status" aria-live="polite" hidden>No se encontraron capacitaciones con ese nombre.</p>
+  <div class="cursos" id="lista-capacitaciones">
     <article class="tarjeta-curso">
       <div class="imagen-curso excel" role="img" aria-label="Imagen ilustrativa de Excel Básico para Docentes">X</div>
       <h2>Excel Básico para Docentes</h2>
