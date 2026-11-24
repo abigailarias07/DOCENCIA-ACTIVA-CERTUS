@@ -1,3 +1,9 @@
+
+/* =========================================
+   DOCENCIA ACTIVA CERTUS
+   ESTILOS DE CAPACITACIONES
+========================================= */
+
 :root {
     --azul-oscuro: #00205b;
     --azul-claro: #42bde5;
@@ -6,6 +12,8 @@
     --blanco: #ffffff;
     --texto: #111111;
 }
+
+/* CONFIGURACIÓN GENERAL */
 
 * {
     box-sizing: border-box;
@@ -30,6 +38,10 @@ body {
     background: var(--blanco);
 }
 
+/* =========================================
+   HEADER Y NAVEGACIÓN
+========================================= */
+
 #header-lista {
     width: 100%;
     background: var(--azul-oscuro);
@@ -45,17 +57,57 @@ body {
     gap: 18px;
 }
 
-#header-lista nav > a:first-child {
+/* BOTÓN SALIR */
+
+#header-lista nav > .btn-salir {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
     color: var(--blanco);
-    font-size: 30px;
-    line-height: 1;
+    font-size: 13px;
+    font-weight: bold;
     text-decoration: none;
-    font-weight: 300;
+    white-space: nowrap;
+
+    padding: 8px 5px;
+    border-radius: 6px;
+
+    transition: 0.3s ease;
 }
+
+#header-lista nav > .btn-salir:visited {
+    color: var(--blanco);
+}
+
+#header-lista nav > .btn-salir:hover {
+    color: var(--azul-claro);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* SÍMBOLO DE REGRESO */
+
+.simbolo-salir {
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+/* TEXTO SALIR */
+
+.texto-salir {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* LOGO CERTUS */
 
 #header-lista nav > a:nth-child(2) {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 }
 
 #header-lista nav img {
@@ -64,6 +116,8 @@ body {
     max-height: 44px;
     object-fit: contain;
 }
+
+/* BUSCADOR */
 
 #header-lista input[type="search"] {
     width: 260px;
@@ -82,6 +136,10 @@ body {
     box-shadow: 0 0 0 3px rgba(66, 189, 229, 0.35);
 }
 
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+
 main {
     width: 100%;
     flex: 1;
@@ -92,6 +150,7 @@ main {
     margin: 24px auto 30px;
 }
 
+/* BOTÓN CREAR CAPACITACIÓN */
 
 #btn-ir-a-crear {
     width: 230px;
@@ -122,6 +181,9 @@ main {
     border-color: var(--azul-oscuro);
 }
 
+/* =========================================
+   LISTA DE CAPACITACIONES
+========================================= */
 
 #contenedor-cursos h2 {
     margin: 0 0 18px;
@@ -146,6 +208,8 @@ main {
     padding-right: 18px;
 }
 
+/* IMAGEN DEL CURSO */
+
 #contenedor-cursos article img {
     width: 190px;
     height: 112px;
@@ -153,6 +217,8 @@ main {
     grid-row: 1 / 3;
     object-fit: cover;
 }
+
+/* INFORMACIÓN */
 
 #contenedor-cursos article h5 {
     align-self: end;
@@ -171,6 +237,8 @@ main {
     font-size: 13px;
     line-height: 1.4;
 }
+
+/* BOTÓN EDITAR */
 
 .btn-editar-curso {
     grid-column: 3;
@@ -192,6 +260,10 @@ main {
     background: #159bc8;
 }
 
+/* =========================================
+   CREAR CAPACITACIÓN
+========================================= */
+
 #vista-crear {
     width: min(100% - 40px, 900px);
     margin: 28px auto 40px;
@@ -210,6 +282,8 @@ main {
     font-size: 13px;
     cursor: pointer;
 }
+
+/* FORMULARIO NUEVO CURSO */
 
 #form-nuevo-curso {
     display: grid;
@@ -232,6 +306,8 @@ main {
     font-weight: 600;
 }
 
+/* CAJA DE PORTADA */
+
 .caja-portada {
     width: 100%;
     min-height: 180px;
@@ -244,6 +320,8 @@ main {
     font-size: 42px !important;
     cursor: pointer;
 }
+
+/* CAMPOS */
 
 #form-nuevo-curso input:not([type="file"]),
 #form-nuevo-curso select,
@@ -267,6 +345,8 @@ main {
     border-color: var(--azul-oscuro);
 }
 
+/* BOTONES DE FORMULARIO */
+
 #form-nuevo-curso button[type="submit"],
 #form-editar-curso button[type="submit"] {
     width: 100%;
@@ -285,6 +365,9 @@ main {
     background: #123b7b;
 }
 
+/* =========================================
+   MODAL EDITAR CAPACITACIÓN
+========================================= */
 
 #modal-editar-curso {
     width: min(92%, 850px);
@@ -339,6 +422,9 @@ main {
     font-size: 15px;
 }
 
+/* =========================================
+   FOOTER
+========================================= */
 
 footer {
     width: 100%;
@@ -358,10 +444,27 @@ footer p {
     font-size: 12px;
 }
 
+/* =========================================
+   TABLETS Y CELULARES
+========================================= */
+
 @media (max-width: 650px) {
+
     #header-lista nav {
         width: calc(100% - 24px);
         gap: 12px;
+    }
+
+    #header-lista nav > .btn-salir {
+        gap: 9px;
+    }
+
+    .simbolo-salir {
+        font-size: 27px;
+    }
+
+    .texto-salir {
+        font-size: 12px;
     }
 
     #header-lista nav img {
@@ -452,7 +555,12 @@ footer p {
     }
 }
 
+/* =========================================
+   CELULARES PEQUEÑOS
+========================================= */
+
 @media (max-width: 380px) {
+
     #header-lista nav {
         gap: 8px;
     }

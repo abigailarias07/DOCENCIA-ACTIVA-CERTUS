@@ -1,197 +1,488 @@
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DOCENCIA ACTIVA CERTUS - Capacitaciones</title>
-<link rel="stylesheet" href="../CSS/capacitaciones.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DOCENCIA ACTIVA CERTUS - Capacitaciones</title>
+
+    <!-- CSS DE CAPACITACIONES -->
+    <link rel="stylesheet" href="/CSS/capacitaciones.css">
+</head>
+
 <body>
 
-  <header id="header-lista">
-    <nav>
-      <a href="index.html" aria-label="Volver">&lt;SALIR</a>
-      <a href="index.html">
-        <img src="../img/certus-logo001.png" alt="Logo Certus" width="100">
-      </a>
-      <input type="search" id="buscador-curso" placeholder="Buscar curso por título o descripción">
-    </nav>
-  </header>
-
-  <main>
     <!-- ==========================================
-         SECCIÓN 1: LISTADO DE CAPACITACIONES
-         ========================================== -->
-    <section id="vista-lista">
-      <button type="button" id="btn-ir-a-crear">
-        <span>+</span>
-        <span>Crear capacitaciones</span>
-      </button>
+         HEADER Y NAVEGACIÓN
+    =========================================== -->
 
-      <div id="contenedor-cursos">
-        <h2>TODAS LAS CAPACITACIONES</h2>
-        <!-- Las tarjetas de cursos se cargarán dinámicamente desde MySQL -->
-      </div>
-    </section>
+    <header id="header-lista">
 
-    <!-- ==========================================
-         SECCIÓN 2: CREAR CAPACITACIÓN
-         ========================================== -->
-    <section id="vista-crear" hidden>
-      <nav>
-        <button type="button" id="btn-volver">&lt; SALIR</button>
-      </nav>
+        <nav>
 
-      <form id="form-nuevo-curso">
-        <div class="columna-izquierda">
-          <div class="campo-form">
-            <span class="etiqueta-titulo">Ingresar portada</span>
-            <label for="portada-curso" id="label-portada" class="caja-portada" style="cursor: pointer; overflow: hidden;">+</label>
-            <input type="file" id="portada-curso" name="portada" accept="image/*" hidden>
-          </div>
+            <!-- BOTÓN SALIR -->
+            <a href="index.html"
+               class="btn-salir"
+               aria-label="Volver al panel">
 
-          <div class="campo-form">
-            <label for="estado-curso">ABIERTO/CERRADO:</label>
-            <select id="estado-curso" name="estado" required>
-              <option value="" disabled selected>Selecciona una opción</option>
-              <option value="abierto">Abierto</option>
-              <option value="cerrado">Cerrado</option>
-            </select>
-          </div>
+                <span class="simbolo-salir">&lt;</span>
+                <span class="texto-salir">SALIR</span>
 
-          <div class="campo-form">
-            <label for="destinatario-curso">Destinatario (Escuela):</label>
-            <select id="destinatario-curso" name="destinatario" required>
-              <option value="" disabled selected>Selecciona destinatario</option>
-              <option value="todos">TODOS LOS DOCENTES</option>
-              <option value="ingles">Escuela de Inglés</option>
-              <option value="comunicaciones">Escuela de Comunicaciones</option>
-              <option value="tic">Escuela de TIC</option>
-              <option value="ti">Escuela de TI</option>
-              <option value="administrador">ADMINISTRADOR</option>
-            </select>
-          </div>
-        </div>
+            </a>
 
-        <div class="columna-derecha">
-          <div class="campo-form">
-            <label for="titulo-curso">Ingresa nombre de la capacitación:</label>
-            <input type="text" id="titulo-curso" name="titulo" required>
-          </div>
+            <!-- LOGO CERTUS -->
+            <a href="index.html" aria-label="Volver al inicio">
 
-          <div class="campo-form">
-            <label for="descripcion-curso">Ingresa una descripción:</label>
-            <input type="text" id="descripcion-curso" name="descripcion" required>
-          </div>
+                <img src="../img/certus-logo001.png"
+                     alt="Logo Certus"
+                     width="100">
 
-          <div class="campo-form">
-            <label for="video-curso">Ingresa enlace del video (YouTube):</label>
-            <input type="url" id="video-curso" name="video" placeholder="https://www.youtube.com/watch?v=..." required>
-          </div>
+            </a>
 
-          <div class="campo-checkbox">
-            <input type="checkbox" id="notificar_docentes" name="notificar_docente">
-            <label for="notificar_docentes">Notificar al destinatario seleccionado</label>
-          </div>
+            <!-- BUSCADOR -->
+            <input
+                type="search"
+                id="buscador-curso"
+                placeholder="Buscar curso por título o descripción"
+                aria-label="Buscar capacitación">
 
-          <button type="submit">SUBIR CAPACITACIÓN</button>
-        </div>
-      </form>
-    </section>
+        </nav>
+
+    </header>
+
 
     <!-- ==========================================
-         MODAL 1: EDITAR CAPACITACIÓN Y VISUALIZACIONES
-         ========================================== -->
-    <dialog id="modal-editar-curso">
-      <div class="barra-salir">
-        <button type="button" id="btn-cerrar-editar">&lt; SALIR</button>
-      </div>
+         CONTENIDO PRINCIPAL
+    =========================================== -->
 
-      <div class="contenedor-editar">
-        <form id="form-editar-curso">
-          <h3>EDITAR CAPACITACIÓN</h3>
-          <input type="hidden" id="edit-id-curso">
+    <main>
 
-          <div class="campo-form">
-            <label for="edit-portada">Cambiar portada (opcional):</label>
-            <input type="file" id="edit-portada" name="portada" accept="image/*">
-          </div>
+        <!-- ==========================================
+             SECCIÓN 1: LISTADO DE CAPACITACIONES
+        =========================================== -->
 
-          <div class="campo-form">
-            <label for="edit-estado">ABIERTO/CERRADO:</label>
-            <select id="edit-estado" name="estado" required>
-              <option value="abierto">Abierto</option>
-              <option value="cerrado">Cerrado</option>
-            </select>
-          </div>
+        <section id="vista-lista">
 
-          <div class="campo-form">
-            <label for="edit-destinatario">Destinatario (Escuela):</label>
-            <select id="edit-destinatario" name="destinatario" required>
-              <option value="todos">TODOS LOS DOCENTES</option>
-              <option value="ingles">Escuela de Inglés</option>
-              <option value="comunicaciones">Escuela de Comunicaciones</option>
-              <option value="tic">Escuela de TIC</option>
-              <option value="ti">Escuela de TI</option>
-              <option value="administrador">ADMINISTRADOR</option>
-            </select>
-          </div>
+            <button type="button" id="btn-ir-a-crear">
 
-          <div class="campo-form">
-            <label for="edit-titulo">Nombre de la capacitación:</label>
-            <input type="text" id="edit-titulo" name="titulo" required>
-          </div>
+                <span>+</span>
+                <span>Crear capacitaciones</span>
 
-          <div class="campo-form">
-            <label for="edit-descripcion">Descripción:</label>
-            <input type="text" id="edit-descripcion" name="descripcion" required>
-          </div>
+            </button>
 
-          <div class="campo-form">
-            <label for="edit-video">Enlace del video (YouTube):</label>
-            <input type="url" id="edit-video" name="video" required>
-          </div>
 
-          <button type="submit">ACTUALIZAR CAPACITACIÓN</button>
-        </form>
+            <div id="contenedor-cursos">
 
-        <hr>
+                <h2>TODAS LAS CAPACITACIONES</h2>
 
-        <div class="panel-visualizaciones">
-          <h3 id="titulo-visualizaciones">DOCENTES QUE VISUALIZARON (0)</h3>
-          <ul id="lista-docentes-vieron" style="list-style: none; padding: 0; margin-top: 10px;">
-            <!-- Aquí aparecerán los nombres/correos de quienes vieron el video -->
-          </ul>
-        </div>
-      </div>
-    </dialog>
+                <!--
+                    Las tarjetas de cursos
+                    se cargarán dinámicamente desde MySQL.
+                -->
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             SECCIÓN 2: CREAR CAPACITACIÓN
+        =========================================== -->
+
+        <section id="vista-crear" hidden>
+
+            <nav>
+
+                <button type="button" id="btn-volver">
+                    &lt; SALIR
+                </button>
+
+            </nav>
+
+
+            <form id="form-nuevo-curso">
+
+                <!-- COLUMNA IZQUIERDA -->
+
+                <div class="columna-izquierda">
+
+                    <div class="campo-form">
+
+                        <span class="etiqueta-titulo">
+                            Ingresar portada
+                        </span>
+
+                        <label
+                            for="portada-curso"
+                            id="label-portada"
+                            class="caja-portada"
+                            style="cursor: pointer; overflow: hidden;">
+
+                            +
+
+                        </label>
+
+                        <input
+                            type="file"
+                            id="portada-curso"
+                            name="portada"
+                            accept="image/*"
+                            hidden>
+
+                    </div>
+
+
+                    <div class="campo-form">
+
+                        <label for="estado-curso">
+                            ABIERTO/CERRADO:
+                        </label>
+
+                        <select
+                            id="estado-curso"
+                            name="estado"
+                            required>
+
+                            <option value="" disabled selected>
+                                Selecciona una opción
+                            </option>
+
+                            <option value="abierto">Abierto</option>
+                            <option value="cerrado">Cerrado</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo-form">
+
+                        <label for="destinatario-curso">
+                            Destinatario (Escuela):
+                        </label>
+
+                        <select
+                            id="destinatario-curso"
+                            name="destinatario"
+                            required>
+
+                            <option value="" disabled selected>
+                                Selecciona destinatario
+                            </option>
+
+                            <option value="todos">TODOS LOS DOCENTES</option>
+                            <option value="ingles">Escuela de Inglés</option>
+                            <option value="comunicaciones">Escuela de Comunicaciones</option>
+                            <option value="tic">Escuela de TIC</option>
+                            <option value="ti">Escuela de TI</option>
+                            <option value="administrador">ADMINISTRADOR</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COLUMNA DERECHA -->
+
+                <div class="columna-derecha">
+
+                    <div class="campo-form">
+
+                        <label for="titulo-curso">
+                            Ingresa nombre de la capacitación:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="titulo-curso"
+                            name="titulo"
+                            required>
+
+                    </div>
+
+
+                    <div class="campo-form">
+
+                        <label for="descripcion-curso">
+                            Ingresa una descripción:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="descripcion-curso"
+                            name="descripcion"
+                            required>
+
+                    </div>
+
+
+                    <div class="campo-form">
+
+                        <label for="video-curso">
+                            Ingresa enlace del video (YouTube):
+                        </label>
+
+                        <input
+                            type="url"
+                            id="video-curso"
+                            name="video"
+                            placeholder="https://www.youtube.com/watch?v=..."
+                            required>
+
+                    </div>
+
+
+                    <div class="campo-checkbox">
+
+                        <input
+                            type="checkbox"
+                            id="notificar_docentes"
+                            name="notificar_docente">
+
+                        <label for="notificar_docentes">
+                            Notificar al destinatario seleccionado
+                        </label>
+
+                    </div>
+
+
+                    <button type="submit">
+                        SUBIR CAPACITACIÓN
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- ==========================================
+             MODAL 1: EDITAR CAPACITACIÓN
+        =========================================== -->
+
+        <dialog id="modal-editar-curso">
+
+            <div class="barra-salir">
+
+                <button type="button" id="btn-cerrar-editar">
+                    &lt; SALIR
+                </button>
+
+            </div>
+
+
+            <div class="contenedor-editar">
+
+                <form id="form-editar-curso">
+
+                    <h3>EDITAR CAPACITACIÓN</h3>
+
+                    <input
+                        type="hidden"
+                        id="edit-id-curso">
+
+
+                    <div class="campo-form">
+
+                        <label for="edit-portada">
+                            Cambiar portada (opcional):
+                        </label>
+
+                        <input
+                            type="file"
+                            id="edit-portada"
+                            name="portada"
+                            accept="image/*">
+
+                    </div>
+
+
+                    <div class="campo-form">
+
+                        <label for="edit-estado">
+                            ABIERTO/CERRADO:
+                        </label>
+
+                        <select
+                            id="edit-estado"
+                            name="estado"
+                            required>
+
+                            <option value="abierto">Abierto</option>
+                            <option value="cerrado">Cerrado</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo-form">
+
+                        <label for="edit-destinatario">
+                            Destinatario (Escuela):
+                        </label>
+
+                        <select
+                            id="edit-destinatario"
+                            name="destinatario"
+                            required>
+
+                            <option value="todos">TODOS LOS DOCENTES</option>
+                            <option value="ingles">Escuela de Inglés</option>
+                            <option value="comunicaciones">Escuela de Comunicaciones</option>
+                            <option value="tic">Escuela de TIC</option>
+                            <option value="ti">Escuela de TI</option>
+                            <option value="administrador">ADMINISTRADOR</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo-form">
+
+                        <label for="edit-titulo">
+                            Nombre de la capacitación:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="edit-titulo"
+                            name="titulo"
+                            required>
+
+                    </div>
+
+
+                    <div class="campo-form">
+
+                        <label for="edit-descripcion">
+                            Descripción:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="edit-descripcion"
+                            name="descripcion"
+                            required>
+
+                    </div>
+
+
+                    <div class="campo-form">
+
+                        <label for="edit-video">
+                            Enlace del video (YouTube):
+                        </label>
+
+                        <input
+                            type="url"
+                            id="edit-video"
+                            name="video"
+                            required>
+
+                    </div>
+
+
+                    <button type="submit">
+                        ACTUALIZAR CAPACITACIÓN
+                    </button>
+
+                </form>
+
+
+                <hr>
+
+
+                <!-- VISUALIZACIONES -->
+
+                <div class="panel-visualizaciones">
+
+                    <h3 id="titulo-visualizaciones">
+                        DOCENTES QUE VISUALIZARON (0)
+                    </h3>
+
+                    <ul
+                        id="lista-docentes-vieron"
+                        style="list-style: none; padding: 0; margin-top: 10px;">
+
+                        <!-- Los docentes se cargarán desde JavaScript -->
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </dialog>
+
+
+        <!-- ==========================================
+             MODAL 2: REPRODUCTOR DE YOUTUBE
+        =========================================== -->
+
+        <dialog id="modal-reproducir-video"
+                style="width: 90%; max-width: 800px; border-radius: 10px; padding: 20px;">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+
+                <h3 id="reproductor-titulo" style="margin: 0;">
+                    Título del curso
+                </h3>
+
+                <button type="button" id="btn-cerrar-video">
+                    X
+                </button>
+
+            </div>
+
+
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+
+                <iframe
+                    id="iframe-youtube"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                    src=""
+                    title="Reproductor de capacitación CERTUS"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+
+                </iframe>
+
+            </div>
+
+
+            <p id="reproductor-descripcion" style="margin-top: 12px;"></p>
+
+        </dialog>
+
+    </main>
+
 
     <!-- ==========================================
-         MODAL 2: REPRODUCTOR DE YOUTUBE INTEGRADO
-         ========================================== -->
-    <dialog id="modal-reproducir-video" style="width: 90%; max-width: 800px; border-radius: 10px; padding: 20px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <h3 id="reproductor-titulo" style="margin: 0;">Título del curso</h3>
-        <button type="button" id="btn-cerrar-video">X</button>
-      </div>
-      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-        <iframe
-          id="iframe-youtube"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          src=""
-          title="Reproductor de capacitación CERTUS"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <p id="reproductor-descripcion" style="margin-top: 12px;"></p>
-    </dialog>
+         FOOTER
+    =========================================== -->
 
-  </main>
+    <footer>
 
-  <footer>
-    <p>&copy; 2026 EDUCACIÓN ACTIVA CERTUS. Todos los derechos reservados.</p>
-  </footer>
+        <p>
+            &copy; 2026 EDUCACIÓN ACTIVA CERTUS.
+            Todos los derechos reservados.
+        </p>
 
-  <script type="module" src="../JS/capacitaciones.js"></script>
+    </footer>
+
+
+    <!-- ==========================================
+         JAVASCRIPT DE CAPACITACIONES
+    =========================================== -->
+
+    <script type="module" src="../JS/capacitaciones.js"></script>
+
 </body>
 </html>
