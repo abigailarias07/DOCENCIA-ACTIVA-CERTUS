@@ -1,66 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Recuperar contraseña | CERTUS</title>
-      <link rel="stylesheet" href="css/estilos_docente.css">
-      <script src="js/docente.js" defer></script>
-    </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recuperar contraseña | CERTUS</title>
+  <link rel="stylesheet" href="css/estilos_docente.css">
+<script type="module" src="js/docente.js"></script>
+</head>
 <body>
-<header class="encabezado autenticacion"><a class="marca" href="../index.html"><img src="../img/certus-logo001.png" alt="CERTUS" width="144" height="39"></a></header>
+<header class="encabezado autenticacion">
+  <a class="marca" href="../index.html">
+    <img src="../img/certus-logo001.png" alt="CERTUS" width="144" height="39">
+  </a>
+</header>
 <main>
-    <div class="caja-acceso">
-  <section data-paso="1">
-    <h1 tabindex="-1">Recuperar contraseña</h1>
-    <p class="descripcion">Ingresa tu correo institucional.</p>
-    <form id="form-recuperar">
-      <div class="campo"><label for="correo-recuperar">Correo institucional</label>
-        <input type="email" id="correo-recuperar" placeholder="usuario@certus.edu.pe" autocomplete="email" required></div>
-      <p class="mensaje" id="mensaje-recuperar" role="alert"></p>
-      <button class="boton bloque" type="submit">Continuar</button>
-    </form>
-    <p class="nota centrado">Pantallas de muestra: no se enviará ningún correo.</p>
-    <a class="enlace-inferior" href="login.html">Volver al inicio de sesión</a>
-  </section>
-  <section data-paso="2" hidden>
-    <h1 tabindex="-1">Código de verificación</h1>
-    <p class="descripcion">Para probar este paso, utiliza el código 123456.</p>
-    <form id="form-codigo">
-      <div class="codigo" aria-label="Código de 6 dígitos">
-        <input inputmode="numeric" aria-label="Dígito 1" maxlength="1" required>
-        <input inputmode="numeric" aria-label="Dígito 2" maxlength="1" required>
-        <input inputmode="numeric" aria-label="Dígito 3" maxlength="1" required>
-        <input inputmode="numeric" aria-label="Dígito 4" maxlength="1" required>
-        <input inputmode="numeric" aria-label="Dígito 5" maxlength="1" required>
-        <input inputmode="numeric" aria-label="Dígito 6" maxlength="1" required>
-      </div>
-      <p class="mensaje" id="mensaje-codigo" role="alert"></p>
-      <button class="boton bloque" type="submit">Continuar</button>
-    </form>
-    <button type="button" class="boton suave bloque separado" data-ir-paso="1">Volver</button>
-  </section>
-  <section data-paso="3" hidden>
-    <h1 tabindex="-1">Nueva contraseña</h1>
-    <p class="descripcion">Comprueba que ambas contraseñas coincidan.</p>
-    <form id="form-nueva-clave">
-      <div class="campo"><label for="nueva-clave">Nueva contraseña</label>
-        <div class="entrada-clave"><input type="password" id="nueva-clave" minlength="8" autocomplete="new-password" required>
-        <button type="button" class="mostrar-clave" data-mostrar-clave="nueva-clave" aria-label="Mostrar contraseña">Mostrar</button></div></div>
-      <div class="campo"><label for="confirmar-clave">Confirmar contraseña</label>
-        <div class="entrada-clave"><input type="password" id="confirmar-clave" minlength="8" autocomplete="new-password" required>
-        <button type="button" class="mostrar-clave" data-mostrar-clave="confirmar-clave" aria-label="Mostrar contraseña">Mostrar</button></div></div>
-      <p class="mensaje" id="mensaje-clave" role="alert"></p>
-      <button class="boton bloque" type="submit">Continuar</button>
-    </form>
-  </section>
-  <section data-paso="4" hidden>
-    <h1 tabindex="-1">Proceso completado</h1>
-    <p class="descripcion">Has recorrido la pantalla de cambio de contraseña.</p>
-    <p class="nota centrado">Es una demostración visual; no se modificó ninguna cuenta.</p>
-    <a class="boton bloque" href="login.html">Volver al inicio de sesión</a>
-  </section>
-</div>
+  <div class="caja-acceso">
+    <section data-paso="1">
+      <h1 tabindex="-1">Recuperar contraseña</h1>
+      <p class="descripcion">Ingresa tu correo institucional (@certus.edu.pe) y te enviaremos un enlace para restablecer tu clave.</p>
+      <form id="form-recuperar">
+        <div class="campo">
+          <label for="correo-recuperar">Correo institucional</label>
+          <input type="email" id="correo-recuperar" placeholder="usuario@certus.edu.pe" autocomplete="email" required>
+        </div>
+        <p class="mensaje" id="mensaje-recuperar" role="alert"></p>
+        <button class="boton bloque" type="submit">Enviar enlace de recuperación</button>
+      </form>
+      <a class="enlace-inferior" href="login.html">Volver al inicio de sesión</a>
+    </section>
+
+    <section data-paso="2" hidden>
+      <h1 tabindex="-1">Correo enviado</h1>
+      <p class="descripcion">Hemos enviado un enlace seguro a tu correo institucional. Revisa tu bandeja de entrada o spam para crear tu nueva contraseña.</p>
+      <a class="boton bloque" href="login.html">Volver al inicio de sesión</a>
+    </section>
+  </div>
 </main>
 <footer class="pie">2026 CERTUS - EDUCACIÓN SUPERIOR</footer>
 </body>

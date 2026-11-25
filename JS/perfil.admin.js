@@ -2,8 +2,10 @@ import { auth } from "./firebase-config.js";
 import {
   EmailAuthProvider,
   reauthenticateWithCredential,
-  updatePassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  updatePassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
 // URL de tu API REST para perfil, foto y cambio de clave en MySQL
 const API_URL_ADMIN = "http://localhost:3000/api/usuarios";
@@ -47,7 +49,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     imgFoto.src = usuarioSesion.foto;
   }
 
-  // Consultamos a MySQL para traer los datos completos actualizados (como DNI o foto)
   try {
     const respuesta = await fetch(`${API_URL_ADMIN}/${usuarioSesion.id}`);
     const datos = await respuesta.json();
@@ -61,11 +62,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
   } catch (error) {
-    console.warn("No se pudo sincronizar datos extra con MySQL, usando datos de sesión.", error);
+    console.warn("No se pudo sincronizar datos extra con MySQL, usando datos de sesión.");
   }
 
   // =========================================================
-  // 3. CAMBIAR FOTO DE PERFIL DESDE EL COMPUTADOR (ESTILO IG)
+  // 3. CAMBIAR FOTO DE PERFIL DESDE EL COMPUTADOR
   // =========================================================
   const abrirSelectorFoto = () => inputFotoAdmin && inputFotoAdmin.click();
 
@@ -77,19 +78,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       const archivo = e.target.files[0];
       if (!archivo) return;
 
-      // Validar que sea una imagen
       if (!archivo.type.startsWith("image/")) {
         alert("Por favor selecciona un archivo de imagen válido (JPG, PNG, etc.).");
         return;
       }
 
-      // Vista previa instantánea en pantalla
       const reader = new FileReader();
       reader.onload = (ev) => {
         const fotoBase64 = ev.target.result;
         imgFoto.src = fotoBase64;
 
-        // Guardamos también en la sesión local para que persista al recargar mientras no haya backend
         usuarioSesion.foto = fotoBase64;
         if (localStorage.getItem("usuario_certus")) {
           localStorage.setItem("usuario_certus", JSON.stringify(usuarioSesion));
@@ -99,7 +97,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       };
       reader.readAsDataURL(archivo);
 
-      // Enviar la foto al servidor MySQL (API REST)
       const formData = new FormData();
       formData.append("foto", archivo);
 
@@ -132,14 +129,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // =========================================================
-  // 5. ACTUALIZAR CONTRASEÑA EN FIREBASE Y MYSQL
+  // 5. ACTUALIZAR CONTRASEÑA EN FIREBASE Y SINCRONIZAR MYSQL
   // =========================================================
-  formCambiarClave.addEventListener("submit", async (e) => {
+  formCambiarClave.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const claveActual = document.getElementById("clave-actual").value;
-    const claveNueva = document.getElementById("clave-nueva").value;
-    const claveConfirmar = document.getElementById("clave-confirmar").value;
+    const claveActual = document.getElementById("clave-actual").value.trim();
+    const claveNueva = document.getElementById("clave-nueva").value.trim();
+    const claveConfirmar = document.getElementById("clave-confirmar").value.trim();
+
+    if (claveNueva.length < 6) {
+      mensajeClave.style.color = "#d9534f";
+      mensajeClave.textContent = "La nueva contraseña debe tener al menos 6 caracteres.";
+      return;
+    }
 
     if (claveNueva !== claveConfirmar) {
       mensajeClave.style.color = "#d9534f";
@@ -156,54 +159,59 @@ document.addEventListener("DOMContentLoaded", async () => {
     mensajeClave.style.color = "#555";
     mensajeClave.textContent = "Actualizando contraseña...";
 
-    try {
-      const userFirebase = auth.currentUser;
-      if (userFirebase) {
+    onAuthStateChanged(auth, async (userFirebase) => {
+      if (!userFirebase) {
+        mensajeClave.style.color = "#d9534f";
+        mensajeClave.textContent = "Tu sesión de Firebase expiró. Cierra sesión y vuelve a entrar.";
+        return;
+      }
+
+      try {
+        // 1. Reautenticar y actualizar en Firebase Authentication
         const credencial = EmailAuthProvider.credential(userFirebase.email, claveActual);
         await reauthenticateWithCredential(userFirebase, credencial);
         await updatePassword(userFirebase, claveNueva);
-      }
 
-      const respuesta = await fetch(`${API_URL_ADMIN}/${usuarioSesion.id}/password`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          claveActual,
-          claveNueva
-        })
-      });
+        // 2. Sincronizar con MySQL si el servidor está encendido (no bloquea si está apagado)
+        try {
+          await fetch(`${API_URL_ADMIN}/${usuarioSesion.id}/password`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ claveActual, claveNueva })
+          });
+        } catch (errApi) {
+          console.warn("Contraseña actualizada en Firebase (servidor MySQL aún apagado).");
+        }
 
-      const datos = await respuesta.json();
-
-      if (respuesta.ok && datos.exito) {
         mensajeClave.style.color = "#28a745";
         mensajeClave.textContent = "¡Contraseña actualizada correctamente!";
         setTimeout(() => {
           modalClave.close();
           formCambiarClave.reset();
         }, 1200);
-      } else {
+      } catch (error) {
+        console.error("Error al cambiar contraseña:", error.code);
         mensajeClave.style.color = "#d9534f";
-        mensajeClave.textContent = datos.mensaje || "La contraseña actual es incorrecta.";
+        if (error.code === "auth/wrong-password" || error.code === "auth/invalid-credential") {
+          mensajeClave.textContent = "La contraseña actual no es correcta.";
+        } else if (error.code === "auth/requires-recent-login") {
+          mensajeClave.textContent = "Por seguridad, vuelve a iniciar sesión antes de cambiar tu clave.";
+        } else {
+          mensajeClave.textContent = "No se pudo actualizar la contraseña. Verifica tu conexión.";
+        }
       }
-
-    } catch (error) {
-      console.error("Error al cambiar contraseña:", error);
-      mensajeClave.style.color = "#d9534f";
-      if (error.code === "auth/wrong-password" || error.code === "auth/invalid-credential") {
-        mensajeClave.textContent = "La contraseña actual no es correcta.";
-      } else {
-        mensajeClave.textContent = "No se pudo actualizar la contraseña. Verifica tu conexión.";
-      }
-    }
+    }, { onlyOnce: true });
   });
 
   // =========================================================
-  // 6. CERRAR SESIÓN (BORRA LA SESIÓN GUARDADA EN LA PC)
+  // 6. CERRAR SESIÓN EN FIREBASE Y EN EL NAVEGADOR
   // =========================================================
-  btnCerrarSesion.addEventListener("click", () => {
+  btnCerrarSesion.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+    } catch (e) {
+      console.warn("Error al cerrar sesión en Firebase:", e);
+    }
     localStorage.removeItem("usuario_certus");
     sessionStorage.removeItem("usuario_certus");
     window.location.href = "login.html";

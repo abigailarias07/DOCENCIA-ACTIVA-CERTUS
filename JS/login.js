@@ -1,8 +1,16 @@
 import { auth } from "./firebase-config.js";
-import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
-// Cambia esta URL por la ruta real de tu API REST conectada a MySQL
-const API_URL_LOGIN = "http://localhost:3000/api/login";
+// Función para validar que el correo sea institucional de CERTUS
+function esCorreoCertus(correo) {
+  return correo.toLowerCase().endsWith("@certus.edu.pe");
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   // Referencias a las dos tarjetas (secciones)
@@ -50,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
     seccionRecuperar.hidden = false;
     mensajeRecuperar.textContent = "";
 
-    // Si el usuario ya había escrito su correo en el login, lo copiamos automáticamente
     if (inputCorreo.value.trim() !== "") {
       inputCorreoRecuperar.value = inputCorreo.value.trim();
     }
@@ -64,27 +71,45 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // =========================================================
-  // 3. INICIAR SESIÓN CON API REST (MYSQL) + USUARIO DE PRUEBA
+  // 3. INICIAR SESIÓN CON FIREBASE (SOLO @certus.edu.pe)
   // =========================================================
   formLogin.addEventListener("submit", async (e) => {
     e.preventDefault();
-    mensajeLogin.style.color = "#555";
-    mensajeLogin.textContent = "Verificando credenciales...";
 
-    const correo = inputCorreo.value.trim();
+    const correo = inputCorreo.value.trim().toLowerCase();
     const contrasenia = inputContrasenia.value.trim();
     const recordar = checkRecordar.checked;
 
-    // ---> AQUÍ ESTÁ EL USUARIO ADMINISTRADOR DE PRUEBA <---
-    if (correo === "admin@certus.edu.pe" && contrasenia === "123456") {
+    // Validación estricta de dominio institucional
+    if (!esCorreoCertus(correo)) {
+      mensajeLogin.style.color = "#d9534f";
+      mensajeLogin.textContent = "Acceso denegado: Solo se permiten correos @certus.edu.pe";
+      return;
+    }
+
+    mensajeLogin.style.color = "#555";
+    mensajeLogin.textContent = "Verificando credenciales...";
+
+    try {
+      // Configurar si la sesión queda guardada o solo mientras esté abierta la pestaña
+      await setPersistence(
+        auth,
+        recordar ? browserLocalPersistence : browserSessionPersistence
+      );
+
+      // Iniciar sesión en Firebase Authentication
+      const credencial = await signInWithEmailAndPassword(auth, correo, contrasenia);
+      const user = credencial.user;
+
+      // Guardamos los datos en el formato que ya usan tus páginas de administrador
       const sesionUsuario = JSON.stringify({
-        id: 1,
-        nombre: "Administrador Prueba CERTUS",
-        correo: "admin@certus.edu.pe",
-        dni: "12345678",
+        id: user.uid,
+        nombre: user.displayName || "Administrador CERTUS",
+        correo: user.email,
+        dni: "",
         rol: "administrador",
         categoria: "administrador",
-        token: "token-prueba-local"
+        token: await user.getIdToken()
       });
 
       if (recordar) {
@@ -99,64 +124,22 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         window.location.href = "index.html";
       }, 800);
-      return; // Evita que continúe hacia el fetch de MySQL
-    }
-    // ---> FIN DEL USUARIO DE PRUEBA <---
-
-    try {
-      const respuesta = await fetch(API_URL_LOGIN, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ correo, contrasenia })
-      });
-
-      const datos = await respuesta.json();
-
-      if (respuesta.ok && datos.exito) {
-        // Verificamos que el usuario sea administrador
-        if (datos.usuario.rol !== "administrador") {
-          mensajeLogin.style.color = "#d9534f";
-          mensajeLogin.textContent = "Acceso denegado: Solo administradores pueden ingresar.";
-          return;
-        }
-
-        // Preparamos los datos de la sesión
-        const sesionUsuario = JSON.stringify({
-          id: datos.usuario.id,
-          nombre: datos.usuario.nombre,
-          correo: datos.usuario.correo,
-          dni: datos.usuario.dni || "",
-          rol: datos.usuario.rol,
-          categoria: datos.usuario.categoria || "",
-          token: datos.token || ""
-        });
-
-        // Guardamos en localStorage (si marcó recordar) o sessionStorage (si no lo marcó)
-        if (recordar) {
-          localStorage.setItem("usuario_certus", sesionUsuario);
-        } else {
-          sessionStorage.setItem("usuario_certus", sesionUsuario);
-        }
-
-        mensajeLogin.style.color = "#28a745";
-        mensajeLogin.textContent = "¡Bienvenido! Redirigiendo...";
-
-        // Mandamos al administrador al index.html
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 800);
-
-      } else {
-        mensajeLogin.style.color = "#d9534f";
-        mensajeLogin.textContent = datos.mensaje || "Correo o clave de acceso incorrectos.";
-      }
 
     } catch (error) {
-      console.error("Error de conexión con la API:", error);
+      console.error("Error de autenticación:", error.code);
       mensajeLogin.style.color = "#d9534f";
-      mensajeLogin.textContent = "Error al conectar con el servidor. Usa admin@certus.edu.pe / 123456 para prueba.";
+
+      if (
+        error.code === "auth/invalid-credential" ||
+        error.code === "auth/user-not-found" ||
+        error.code === "auth/wrong-password"
+      ) {
+        mensajeLogin.textContent = "Correo o contraseña incorrectos.";
+      } else if (error.code === "auth/too-many-requests") {
+        mensajeLogin.textContent = "Demasiados intentos fallidos. Intenta de nuevo en unos minutos.";
+      } else {
+        mensajeLogin.textContent = "Error al iniciar sesión. Verifica tu conexión e inténtalo otra vez.";
+      }
     }
   });
 
@@ -165,7 +148,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================================================
   formRecuperar.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const correo = inputCorreoRecuperar.value.trim();
+    const correo = inputCorreoRecuperar.value.trim().toLowerCase();
+
+    if (!esCorreoCertus(correo)) {
+      mensajeRecuperar.style.color = "#d9534f";
+      mensajeRecuperar.textContent = "Solo puedes recuperar cuentas institucionales @certus.edu.pe";
+      return;
+    }
 
     mensajeRecuperar.style.color = "#555";
     mensajeRecuperar.textContent = "Enviando enlace de recuperación...";
@@ -176,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
       mensajeRecuperar.textContent = "Enlace enviado. Revisa tu bandeja de entrada o spam para cambiar tu clave.";
       formRecuperar.reset();
     } catch (error) {
-      console.error("Error de Firebase:", error.code, error.message);
+      console.error("Error de Firebase:", error.code);
       mensajeRecuperar.style.color = "#d9534f";
 
       if (error.code === "auth/user-not-found") {

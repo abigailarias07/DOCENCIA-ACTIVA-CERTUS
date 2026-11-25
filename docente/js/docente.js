@@ -1,4 +1,15 @@
-"use strict";
+import { auth } from "../../JS/firebase-config.js";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+const API_URL_USUARIOS = "http://localhost:3000/api/usuarios";
 
 // 1. DATOS DE CAPACITACIONES (EJEMPLO)
 const cursos = {
@@ -47,7 +58,13 @@ const leer = (clave, sesion = false) => {
 const quitar = (clave, sesion = false) => {
   try { (sesion ? sessionStorage : localStorage).removeItem(clave); } catch { /* Almacenamiento bloqueado. */ }
 };
-const avisar = (selector, mensaje) => { const elemento = $(selector); if (elemento) elemento.textContent = mensaje; };
+const avisar = (selector, mensaje, color = "") => {
+  const elemento = $(selector);
+  if (elemento) {
+    if (color) elemento.style.color = color;
+    elemento.textContent = mensaje;
+  }
+};
 const correoValido = (correo) => /^[^\s@]+@certus\.edu\.pe$/i.test(correo);
 const paginaActual = () => location.pathname.split("/").pop();
 
@@ -88,7 +105,7 @@ function buscarCapacitaciones() {
   });
 }
 
-// 3. INICIO DE SESIÓN Y CONTRASEÑAS
+// 3. INICIO DE SESIÓN, RECUPERACIÓN Y CAMBIO DE CONTRASEÑA (FIREBASE + MYSQL)
 function mostrarContrasena() {
   $$('[data-mostrar-clave]').forEach((boton) => boton.addEventListener("click", () => {
     const campo = document.getElementById(boton.dataset.mostrarClave);
@@ -107,74 +124,103 @@ function iniciarSesion() {
   const anterior = leer("correo_docente_certus");
   if (anterior) { correo.value = anterior; recordar.checked = true; }
 
-  formulario.addEventListener("submit", (evento) => {
+  formulario.addEventListener("submit", async (evento) => {
     evento.preventDefault();
-    const valor = correo.value.trim();
+    const valor = correo.value.trim().toLowerCase();
+
     if (!correoValido(valor)) {
-      avisar("#mensaje-login", "Ingresa un correo institucional @certus.edu.pe.");
+      avisar("#mensaje-login", "Ingresa un correo institucional @certus.edu.pe.", "#d9534f");
       correo.focus();
-    } else if (!clave.value) {
-      avisar("#mensaje-login", "Ingresa tu contraseña.");
+      return;
+    }
+    if (!clave.value) {
+      avisar("#mensaje-login", "Ingresa tu contraseña.", "#d9534f");
       clave.focus();
-    } else {
-      // Solo se guarda el correo; el acceso es demostrativo y no verifica cuentas reales.
+      return;
+    }
+
+    avisar("#mensaje-login", "Verificando credenciales...", "#555");
+
+    try {
+      // 1. Autenticar con Firebase Authentication
+      const credencial = await signInWithEmailAndPassword(auth, valor, clave.value);
+      const user = credencial.user;
+
+      // 2. Consultar datos y rol en MySQL (si el servidor está activo)
+      let datosDocente = {
+        uid: user.uid,
+        correo: user.email,
+        nombre: user.displayName || valor.split("@")[0],
+        rol: "docente"
+      };
+
+      try {
+        const resp = await fetch(`${API_URL_USUARIOS}/correo/${encodeURIComponent(valor)}`);
+        const data = await resp.json();
+        if (resp.ok && data.exito && data.usuario) {
+          if (data.usuario.rol && data.usuario.rol !== "docente") {
+            await signOut(auth);
+            avisar("#mensaje-login", "Esta cuenta pertenece a un Administrador. Ingresa por el portal administrativo.", "#d9534f");
+            return;
+          }
+          datosDocente = { ...datosDocente, ...data.usuario };
+        }
+      } catch {
+        console.warn("Servidor MySQL apagado: ingresando con sesión de Firebase.");
+      }
+
       recordar.checked ? guardar("correo_docente_certus", valor) : quitar("correo_docente_certus");
-      guardar("sesion_docente_certus", valor, true);
+      guardar("sesion_docente_certus", JSON.stringify(datosDocente), true);
       location.assign("mis_capacitaciones.html");
+    } catch (error) {
+      console.error("Error login docente:", error.code);
+      if (
+        error.code === "auth/invalid-credential" ||
+        error.code === "auth/user-not-found" ||
+        error.code === "auth/wrong-password"
+      ) {
+        avisar("#mensaje-login", "Correo o contraseña incorrectos.", "#d9534f");
+      } else if (error.code === "auth/too-many-requests") {
+        avisar("#mensaje-login", "Demasiados intentos fallidos. Espera unos minutos.", "#d9534f");
+      } else {
+        avisar("#mensaje-login", "No se pudo iniciar sesión. Revisa tu conexión.", "#d9534f");
+      }
     }
   });
 }
 
 function recuperarContrasena() {
-  if (!$("#form-recuperar")) return;
+  const formRecuperar = $("#form-recuperar");
+  if (!formRecuperar) return;
+
   const pasos = $$("[data-paso]");
   const cambiarPaso = (numero) => {
     pasos.forEach((paso) => { paso.hidden = Number(paso.dataset.paso) !== numero; });
-    $$('[data-paso] .mensaje').forEach((mensaje) => { mensaje.textContent = ""; });
     pasos.find((paso) => Number(paso.dataset.paso) === numero)?.querySelector("h1")?.focus();
   };
 
-  $("#form-recuperar").addEventListener("submit", (evento) => {
+  formRecuperar.addEventListener("submit", async (evento) => {
     evento.preventDefault();
-    if (!correoValido($("#correo-recuperar").value.trim())) {
-      avisar("#mensaje-recuperar", "Ingresa un correo @certus.edu.pe válido.");
-      return;
-    }
-    cambiarPaso(2);
-  });
-  $("#form-codigo").addEventListener("submit", (evento) => {
-    evento.preventDefault();
-    if ($$(".codigo input").map((campo) => campo.value).join("") !== "123456") {
-      avisar("#mensaje-codigo", "Para esta demostración, utiliza el código 123456.");
-      return;
-    }
-    cambiarPaso(3);
-  });
-  $("#form-nueva-clave").addEventListener("submit", (evento) => {
-    evento.preventDefault();
-    const nueva = $("#nueva-clave").value;
-    if (nueva.length < 8) avisar("#mensaje-clave", "La contraseña debe tener al menos 8 caracteres.");
-    else if (nueva !== $("#confirmar-clave").value) avisar("#mensaje-clave", "Las contraseñas no coinciden.");
-    else { evento.currentTarget.reset(); cambiarPaso(4); }
-  });
-  $$('[data-ir-paso]').forEach((boton) => boton.addEventListener("click", () => cambiarPaso(Number(boton.dataset.irPaso))));
+    const correo = $("#correo-recuperar").value.trim().toLowerCase();
 
-  const casillas = $$(".codigo input");
-  casillas.forEach((casilla, indice) => {
-    casilla.addEventListener("input", () => {
-      casilla.value = casilla.value.replace(/\D/g, "").slice(0, 1);
-      if (casilla.value) casillas[indice + 1]?.focus();
-    });
-    casilla.addEventListener("keydown", (evento) => {
-      if (evento.key === "Backspace" && !casilla.value) casillas[indice - 1]?.focus();
-    });
-    casilla.addEventListener("paste", (evento) => {
-      const digitos = (evento.clipboardData?.getData("text") || "").replace(/\D/g, "").slice(0, 6);
-      if (!digitos) return;
-      evento.preventDefault();
-      casillas.forEach((campo, i) => { campo.value = digitos[i] || ""; });
-      casillas[Math.min(digitos.length, 5)].focus();
-    });
+    if (!correoValido(correo)) {
+      avisar("#mensaje-recuperar", "Ingresa un correo @certus.edu.pe válido.", "#d9534f");
+      return;
+    }
+
+    avisar("#mensaje-recuperar", "Enviando enlace de recuperación...", "#555");
+
+    try {
+      await sendPasswordResetEmail(auth, correo);
+      cambiarPaso(2);
+    } catch (error) {
+      console.error("Error al enviar correo de recuperación:", error.code);
+      if (error.code === "auth/user-not-found") {
+        avisar("#mensaje-recuperar", "No existe una cuenta registrada con ese correo institucional.", "#d9534f");
+      } else {
+        avisar("#mensaje-recuperar", "No se pudo enviar el enlace. Inténtalo nuevamente.", "#d9534f");
+      }
+    }
   });
 }
 
@@ -250,7 +296,6 @@ function verClase() {
   actualizarAvance("#progreso-clase", "#porcentaje-clase", curso.avance);
   [["#clase-anterior", numero - 1, numero === 0], ["#clase-siguiente", numero + 1, numero === curso.clases.length - 1]].forEach(([selector, indiceClase, oculto]) => {
     const boton = $(selector);
-    // Reservar siempre el espacio del botón, incluso en los extremos.
     boton.hidden = false;
     boton.style.visibility = oculto ? "hidden" : "visible";
     boton.style.pointerEvents = oculto ? "none" : "";
@@ -262,7 +307,7 @@ function verClase() {
   document.title = `${curso.clases[numero]} | CERTUS`;
 }
 
-// 5. NOTIFICACIONES Y PERFIL
+// 5. NOTIFICACIONES, PERFIL Y CAMBIO DE CONTRASEÑA DEL DOCENTE
 function notificaciones() {
   const clave = "avisos_leidos_certus";
   let leidos = [];
@@ -293,8 +338,111 @@ function notificaciones() {
 }
 
 function perfil() {
-  if ($("#correo-perfil")) $("#correo-perfil").textContent = leer("sesion_docente_certus", true) || "No hay una sesión iniciada";
-  $("#cerrar-sesion")?.addEventListener("click", () => quitar("sesion_docente_certus", true));
+  const sesionRaw = leer("sesion_docente_certus", true);
+  let datosSesion = null;
+  if (sesionRaw) {
+    try {
+      datosSesion = JSON.parse(sesionRaw);
+    } catch {
+      datosSesion = { correo: sesionRaw, nombre: sesionRaw.split("@")[0] };
+    }
+  }
+
+  if ($("#correo-perfil")) {
+    $("#correo-perfil").textContent = datosSesion?.correo || "No hay una sesión iniciada";
+  }
+  if ($("#nombre-perfil")) {
+    $("#nombre-perfil").textContent = datosSesion?.nombre || "Docente Certus";
+  }
+
+  // Modal de cambio de contraseña dentro del perfil del docente
+  const modalClave = $("#modal-clave-docente");
+  const btnAbrirClave = $("#btn-abrir-clave-docente");
+  const btnCerrarClave = $("#btn-cerrar-clave-docente");
+  const formCambiarClave = $("#form-cambiar-clave-docente");
+
+  if (modalClave && btnAbrirClave && formCambiarClave) {
+    btnAbrirClave.addEventListener("click", () => {
+      formCambiarClave.reset();
+      avisar("#mensaje-clave-docente", "");
+      modalClave.showModal();
+    });
+
+    btnCerrarClave?.addEventListener("click", () => modalClave.close());
+
+    formCambiarClave.addEventListener("submit", (evento) => {
+      evento.preventDefault();
+      const claveActual = $("#clave-actual-docente").value.trim();
+      const claveNueva = $("#clave-nueva-docente").value.trim();
+      const claveConfirmar = $("#clave-confirmar-docente").value.trim();
+
+      if (claveNueva.length < 6) {
+        avisar("#mensaje-clave-docente", "La nueva contraseña debe tener al menos 6 caracteres.", "#d9534f");
+        return;
+      }
+      if (claveNueva !== claveConfirmar) {
+        avisar("#mensaje-clave-docente", "Las contraseñas nuevas no coinciden.", "#d9534f");
+        return;
+      }
+      if (claveActual === claveNueva) {
+        avisar("#mensaje-clave-docente", "La nueva contraseña debe ser diferente a la actual.", "#d9534f");
+        return;
+      }
+
+      avisar("#mensaje-clave-docente", "Actualizando contraseña...", "#555");
+
+      onAuthStateChanged(auth, async (userFirebase) => {
+        if (!userFirebase) {
+          avisar("#mensaje-clave-docente", "Tu sesión expiró. Cierra sesión y vuelve a ingresar.", "#d9534f");
+          return;
+        }
+
+        try {
+          const credencial = EmailAuthProvider.credential(userFirebase.email, claveActual);
+          await reauthenticateWithCredential(userFirebase, credencial);
+          await updatePassword(userFirebase, claveNueva);
+
+          if (datosSesion?.id) {
+            try {
+              await fetch(`${API_URL_USUARIOS}/${datosSesion.id}/password`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ claveActual, claveNueva })
+              });
+            } catch {
+              console.warn("Contraseña actualizada en Firebase (servidor MySQL apagado).");
+            }
+          }
+
+          avisar("#mensaje-clave-docente", "¡Contraseña actualizada correctamente!", "#28a745");
+          setTimeout(() => {
+            modalClave.close();
+            formCambiarClave.reset();
+          }, 1200);
+        } catch (error) {
+          console.error("Error al actualizar clave del docente:", error.code);
+          if (error.code === "auth/wrong-password" || error.code === "auth/invalid-credential") {
+            avisar("#mensaje-clave-docente", "La contraseña actual es incorrecta.", "#d9534f");
+          } else if (error.code === "auth/requires-recent-login") {
+            avisar("#mensaje-clave-docente", "Por seguridad, vuelve a iniciar sesión antes de cambiar tu contraseña.", "#d9534f");
+          } else {
+            avisar("#mensaje-clave-docente", "No se pudo cambiar la contraseña. Inténtalo de nuevo.", "#d9534f");
+          }
+        }
+      }, { onlyOnce: true });
+    });
+  }
+
+  $("#cerrar-sesion")?.addEventListener("click", async (evento) => {
+    evento.preventDefault();
+    try {
+      await signOut(auth);
+    } catch (e) {
+      console.warn("Error al cerrar sesión en Firebase:", e);
+    }
+    quitar("sesion_docente_certus", true);
+    location.assign("login.html");
+  });
 }
 
 // 6. NAVEGACIÓN Y CONSTANCIAS
