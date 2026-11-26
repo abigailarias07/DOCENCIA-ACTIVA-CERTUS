@@ -1,8 +1,4 @@
-
-/* =========================================
-   DOCENCIA ACTIVA CERTUS
-   ESTILOS DE CAPACITACIONES
-========================================= */
+/*DOCENCIA ACTIVA CERTUS ESTILOS DE CAPACITACIONES*/
 
 :root {
     --azul-oscuro: #00205b;
@@ -38,9 +34,7 @@ body {
     background: var(--blanco);
 }
 
-/* =========================================
-   HEADER Y NAVEGACIÓN
-========================================= */
+/*HEADER Y NAVEGACIÓN*/
 
 #header-lista {
     width: 100%;

@@ -1,8 +1,4 @@
-
-/* =========================================
-   DOCENCIA ACTIVA CERTUS
-   GESTIÓN DE DOCENTES
-========================================= */
+/*DOCENCIA ACTIVA CERTUS GESTIÓN DE DOCENTES*/
 
 :root {
     --azul-oscuro: #00205b;
@@ -12,9 +8,7 @@
     --texto: #111111;
 }
 
-/* =========================================
-   CONFIGURACIÓN GENERAL
-========================================= */
+/*CONFIGURACIÓN GENERAL*/
 
 * {
     margin: 0;
@@ -40,9 +34,7 @@ body {
     background: var(--blanco);
 }
 
-/* =========================================
-   HEADER Y NAVEGACIÓN
-========================================= */
+/*NAVEGACIÓN*/
 
 #header-lista {
     width: 100%;
@@ -63,9 +55,7 @@ body {
     gap: 15px;
 }
 
-/* =========================================
-   BOTÓN SALIR - ESQUINA IZQUIERDA
-========================================= */
+/*BOTON SALIR LADO IZQUIERDO*/
 
 #header-lista nav > .btn-salir {
     order: 1;
@@ -96,7 +86,7 @@ body {
     background: rgba(255,255,255,0.08);
 }
 
-/* SÍMBOLO DE REGRESO */
+/*SÍMBOLO DE REGRESO*/
 
 .simbolo-salir {
     font-size: 30px;
@@ -112,9 +102,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* =========================================
-   BUSCADOR - LADO DERECHO
-========================================= */
+/*BUSQUEDA LADO DERECHO*/
 
 #header-lista input[type="search"] {
     order: 2;
@@ -143,9 +131,7 @@ body {
     box-shadow: 0 0 0 3px rgba(66,189,229,0.35);
 }
 
-/* =========================================
-   LOGO CERTUS - ESQUINA DERECHA
-========================================= */
+/*LOGO DE CERTUS ESQUINA DERECHA*/
 
 #header-lista nav > a:nth-child(2) {
     order: 3;
@@ -167,9 +153,7 @@ body {
     object-fit: contain;
 }
 
-/* =========================================
-   CONTENIDO PRINCIPAL
-========================================= */
+/*CONTENIDO INICIAL*/
 
 main {
     width: 100%;
@@ -177,9 +161,7 @@ main {
     padding: 0;
 }
 
-/* =========================================
-   BOTÓN CREAR DOCENTE
-========================================= */
+/*BOTÓN CREAR DOCENTE*/
 
 #agregar-docente {
     width: min(100% - 40px, 1000px);
@@ -222,9 +204,7 @@ main {
     border-color: var(--azul-oscuro);
 }
 
-/* =========================================
-   LISTA DE DOCENTES
-========================================= */
+/*LISTA DE LOS DOCENTES*/
 
 #lista-docentes {
     width: min(100% - 40px, 1000px);
@@ -240,7 +220,7 @@ main {
     color: var(--texto);
 }
 
-/* TARJETAS DE DOCENTES */
+/* TARJETAS DE LOS DOCENTES */
 
 .docencia {
     width: 100%;
@@ -258,7 +238,7 @@ main {
     background: var(--gris-tarjeta);
 }
 
-/* FOTO DOCENTE */
+/*FOTO DE DOCENTES*/
 
 .docencia img {
     width: 190px;
@@ -269,7 +249,7 @@ main {
     background: #eeeeee;
 }
 
-/* NOMBRE DEL DOCENTE */
+/*NOMBRE DEL DOCENTE*/
 
 .docencia p {
     margin: 0;
@@ -279,7 +259,7 @@ main {
     overflow-wrap: anywhere;
 }
 
-/* BOTÓN VER DOCENTE */
+/*BOTÓN VER DOCENTE*/
 
 .btn-ver-docente {
     justify-self: end;
@@ -313,9 +293,7 @@ main {
     background: #159bc8;
 }
 
-/* =========================================
-   MODAL CREAR DOCENTE
-========================================= */
+/*MODAL CREAR DOCENTE*/
 
 #modal-crear-docente {
     position: relative;
@@ -341,7 +319,7 @@ main {
     background: rgba(0,0,0,0.55);
 }
 
-/* BOTÓN CERRAR MODAL */
+/*BOTÓN CERRAR MODAL*/
 
 #btn-cerrar-modal {
     position: absolute;
@@ -369,7 +347,7 @@ main {
     color: var(--blanco);
 }
 
-/* TÍTULO DEL MODAL */
+/*TÍTULO DEL MODAL*/
 
 .titulo-modal-docente {
     text-align: center;
@@ -398,7 +376,7 @@ main {
     line-height: 1.5;
 }
 
-/* CAMPOS DEL FORMULARIO */
+/*CAMPOS DEL FORMULARIO*/
 
 .campo-modal {
     display: flex;
@@ -471,9 +449,7 @@ main {
     background: #123b7b;
 }
 
-/* =========================================
-   FOOTER
-========================================= */
+/*FOOTER*/
 
 footer {
     width: 100%;
@@ -498,9 +474,7 @@ footer p {
     font-size: 12px;
 }
 
-/* =========================================
-   TABLETS
-========================================= */
+/*TABLETS*/
 
 @media (max-width: 768px) {
 
@@ -529,9 +503,7 @@ footer p {
     }
 }
 
-/* =========================================
-   CELULARES
-========================================= */
+/*PARA CELULARES*/
 
 @media (max-width: 600px) {
 
@@ -661,9 +633,7 @@ footer p {
     }
 }
 
-/* =========================================
-   CELULARES PEQUEÑOS
-========================================= */
+/*CELULARES PEQUEÑOS*/
 
 @media (max-width: 380px) {
 
